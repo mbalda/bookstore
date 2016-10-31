@@ -40,11 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EntityModels\BookDetails.cs" />
-    <Compile Include="EntityModels\Book.cs" />
-    <Compile Include="EntityModels\User.cs" />
-    <Compile Include="EntityModels\Image.cs" />
-    <Compile Include="EntityModels\Order.cs" />
+    <Compile Include="DomainModels\BookDetails.cs" />
+    <Compile Include="DomainModels\Book.cs" />
+    <Compile Include="DomainModels\Store.cs" />
+    <Compile Include="DomainModels\User.cs" />
+    <Compile Include="DomainModels\Image.cs" />
+    <Compile Include="DomainModels\Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,4 @@
-﻿namespace Bookstore.Common.Models.EntityModels
+﻿namespace Bookstore.Common.Models.DomainModels
 {
 	public class User
 	{

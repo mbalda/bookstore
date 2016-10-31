@@ -4,3 +4,13 @@
 
 /packages
 /.vs
+/src/Bookstore.Common.Infrastructure/obj/Debug
+/src/Bookstore.Common.Infrastructure/bin/Debug
+/src/Bookstore.Common.Models/bin/Debug
+/src/Bookstore.Common.Models/obj/Debug
+/src/Bookstore.DataAccess/bin/Debug
+/src/Bookstore.Web.API/bin
+/src/Bookstore.DataAccess/obj/Debug
+/src/Bookstore.Web.API/obj/Debug
+/tests/Bookstore.Web.API.Tests/bin/Debug
+/tests/Bookstore.Web.API.Tests/obj/Debug

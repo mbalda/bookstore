@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bookstore.Common.Models.EntityModels
+namespace Bookstore.Common.Models.DomainModels
 {
 	public class Order
 	{
