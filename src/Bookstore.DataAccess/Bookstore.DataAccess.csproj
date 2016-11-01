@@ -57,6 +57,10 @@
     <Compile Include="Database\Configurations\OrderEntityConfiguration.cs" />
     <Compile Include="Database\Configurations\ImageEntityConfiguration.cs" />
     <Compile Include="Database\Configurations\UserEntityConfiguration.cs" />
+    <Compile Include="Migrations\201611011157111_Initialize.cs" />
+    <Compile Include="Migrations\201611011157111_Initialize.Designer.cs">
+      <DependentUpon>201611011157111_Initialize.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -69,6 +73,11 @@
       <Project>{3bd05b8a-c7cf-48bd-a9f5-3070e28fd5cf}</Project>
       <Name>Bookstore.Common.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611011157111_Initialize.resx">
+      <DependentUpon>201611011157111_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

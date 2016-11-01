@@ -7,6 +7,8 @@ namespace Bookstore.DataAccess.Database.Configurations
 	{
 		public OrderEntityConfiguration()
 		{
+			ToTable("Orders");
+
 			HasMany<BookDetails>(s => s.OrderedBooks)
 				.WithMany(c => c.Orders)
 				.Map(cs =>
