@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Database\BookstoreContext.cs" />
     <Compile Include="Database\BookStoreInitializer.cs" />
+    <Compile Include="Database\Configurations\BooksEntityConfiguration.cs" />
     <Compile Include="Database\Configurations\ImageEntityConfiguration.cs" />
     <Compile Include="Database\Configurations\UserEntityConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
