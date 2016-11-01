@@ -9,7 +9,7 @@ namespace Bookstore.Common.Models.DomainModels
 
 		public DateTime Date { get; set; }
 
-		public List<Book> OrderedBooks { get; set; }
+		public virtual ICollection<BookDetails> OrderedBooks { get; set; }
 
 		public int UserId { get; set; }
 	}

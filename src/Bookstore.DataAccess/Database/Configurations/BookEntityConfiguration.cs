@@ -5,9 +5,9 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Bookstore.DataAccess.Database.Configurations
 {
-	public class BooksEntityConfiguration : EntityTypeConfiguration<Book>
+	public class BookEntityConfiguration : EntityTypeConfiguration<Book>
 	{
-		public BooksEntityConfiguration()
+		public BookEntityConfiguration()
 		{
 			ToTable("Books");
 
@@ -15,8 +15,6 @@ namespace Bookstore.DataAccess.Database.Configurations
 				.HasColumnAnnotation(
 					IndexAnnotation.AnnotationName, new IndexAnnotation(
 						new IndexAttribute { IsUnique = true }));
-
-			//Map<BookDetails>(x => x.)
 		}
 	}
 }

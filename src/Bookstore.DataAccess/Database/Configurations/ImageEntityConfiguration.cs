@@ -8,6 +8,8 @@ namespace Bookstore.DataAccess.Database.Configurations
 		public ImageEntityConfiguration()
 		{
 			ToTable("Images");
+
+			HasRequired<BookDetails>(x => x.Book).WithMany(x => x.Images);
 		}
 	}
 }
