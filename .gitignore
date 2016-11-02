@@ -14,3 +14,5 @@
 /src/Bookstore.Web.API/obj/Debug
 /tests/Bookstore.Web.API.Tests/bin/Debug
 /tests/Bookstore.Web.API.Tests/obj/Debug
+/src/Bookstore.Services/bin/Debug
+/src/Bookstore.Services/obj/Debug

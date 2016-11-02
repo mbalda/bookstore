@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using Bookstore.Web.API.IoC;
+using System.Web;
 using System.Web.Http;
 
 namespace Bookstore.Web.API
@@ -8,6 +9,7 @@ namespace Bookstore.Web.API
 		protected void Application_Start()
 		{
 			GlobalConfiguration.Configure(WebApiConfig.Register);
+			DependencyConfiguration.Configure();
 		}
 	}
 }

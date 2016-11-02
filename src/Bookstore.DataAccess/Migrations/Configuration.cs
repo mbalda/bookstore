@@ -11,7 +11,7 @@ namespace Bookstore.DataAccess.Migrations
 			AutomaticMigrationsEnabled = false;
 		}
 
-		protected override void Seed(Bookstore.DataAccess.Database.BookstoreContext context)
+		protected override void Seed(Database.BookstoreContext context)
 		{
 			context.Users.Add(new User
 			{
