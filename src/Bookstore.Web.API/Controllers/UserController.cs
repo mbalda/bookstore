@@ -1,4 +1,5 @@
-﻿using Bookstore.Common.Infrastructure.Interfaces;
+﻿using Bookstore.Common.Infrastructure.Commands;
+using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using System.Web.Http;
 
@@ -8,21 +9,50 @@ namespace Bookstore.Web.API.Controllers
 	public class UserController : ApiController
 	{
 		private readonly IQueryHandler<GetUserQuery> _getUserUseCase;
+		private readonly ICommandHandler<RegisterNewUserCommand> _registerUserUseCase;
 
-		public UserController(IQueryHandler<GetUserQuery> getUserUseCase)
+		public UserController(
+			IQueryHandler<GetUserQuery> getUserUseCase,
+			ICommandHandler<RegisterNewUserCommand> registerUserUseCase)
 		{
 			_getUserUseCase = getUserUseCase;
+			_registerUserUseCase = registerUserUseCase;
 		}
 
+		[HttpGet]
 		[Route("{userId}")]
-		public IHttpActionResult Get([FromUri]GetUserQuery query)
+		public IHttpActionResult GetUser([FromUri]int userId)
 		{
-			if (query == null)
+			if (!GetUserQuery.IsValidUserId(userId))
 				return BadRequest();
 
-			var user = _getUserUseCase.Handle(query).User;
+			var query = new GetUserQuery(userId);
 
-			return Ok(user);
+			var response = _getUserUseCase.Handle(query);
+
+			if (response.ContainsUser)
+				return Ok(response.User);
+
+			return NotFound();
+		}
+
+		[HttpPost]
+		[Route("")]
+		public IHttpActionResult SignUp([FromBody]RegisterNewUserCommand command)
+		{
+			if (!command.IsValidCommand())
+				return BadRequest();
+
+			_registerUserUseCase.Handle(command);
+
+			var query = new GetUserQuery(command.Login);
+
+			var response = _getUserUseCase.Handle(query);
+
+			if (response.ContainsUser)
+				return Created("", response.User);
+
+			return NotFound();
 		}
 	}
 }

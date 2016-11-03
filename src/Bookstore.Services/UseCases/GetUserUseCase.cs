@@ -14,7 +14,7 @@ namespace Bookstore.Services.UseCases
 
 		public GetUserQuery Handle(GetUserQuery query)
 		{
-			query.User = _userRepository.Get(query.UserId);
+			query.User = query.IsUserIdKnown ? _userRepository.Get(query.UserId) : _userRepository.Get(query.Login);
 
 			return query;
 		}

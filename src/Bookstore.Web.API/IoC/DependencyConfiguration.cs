@@ -1,4 +1,5 @@
-﻿using Bookstore.Common.Infrastructure.Interfaces;
+﻿using Bookstore.Common.Infrastructure.Commands;
+using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.DataAccess.Database;
 using Bookstore.DataAccess.Repositories;
@@ -24,11 +25,26 @@ namespace Bookstore.Web.API.IoC
 
 		private static void RegisterDependencies(Container container)
 		{
-			container.Register<BookstoreContext>(Lifestyle.Scoped);
+			RegisterDataAccessLayerComponents(container);
 
-			container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
+			RegisterCommandHandlers(container);
+			RegisterQueriesHandlers(container);
+		}
 
+		private static void RegisterQueriesHandlers(Container container)
+		{
 			container.Register<IQueryHandler<GetUserQuery>, GetUserUseCase>();
+		}
+
+		private static void RegisterCommandHandlers(Container container)
+		{
+			container.Register<ICommandHandler<RegisterNewUserCommand>, RegisterNewUserUseCase>();
+		}
+
+		private static void RegisterDataAccessLayerComponents(Container container)
+		{
+			container.Register<BookstoreContext>(Lifestyle.Scoped);
+			container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
 		}
 	}
 }
