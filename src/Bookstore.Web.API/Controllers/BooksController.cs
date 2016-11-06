@@ -30,5 +30,24 @@ namespace Bookstore.Web.API.Controllers
 
 			return NotFound();
 		}
+
+		[HttpGet]
+		[Route("{bookId}/details")]
+		public IHttpActionResult GetBookDetails([FromUri]int bookId)
+		{
+			if (!GetUserQuery.IsValidUserId(bookId))
+				return BadRequest();
+
+			var query = new GetBookQuery(bookId);
+
+
+			// TODO: another use case
+			_getBookUseCase.Handle(query);
+
+			if (query.ContainsResult)
+				return Ok(query.Result);
+
+			return NotFound();
+		}
 	}
 }

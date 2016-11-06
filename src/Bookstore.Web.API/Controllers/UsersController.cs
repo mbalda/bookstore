@@ -6,12 +6,12 @@ using System.Web.Http;
 namespace Bookstore.Web.API.Controllers
 {
 	[RoutePrefix("api/users")]
-	public class UserController : ApiController
+	public class UsersController : ApiController
 	{
 		private readonly IQueryHandler<GetUserQuery> _getUserUseCase;
 		private readonly ICommandHandler<RegisterNewUserCommand> _registerUserUseCase;
 
-		public UserController(
+		public UsersController(
 			IQueryHandler<GetUserQuery> getUserUseCase,
 			ICommandHandler<RegisterNewUserCommand> registerUserUseCase)
 		{

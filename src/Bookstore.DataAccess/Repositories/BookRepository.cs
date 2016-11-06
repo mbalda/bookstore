@@ -15,22 +15,22 @@ namespace Bookstore.DataAccess.Repositories
 			this._context = context;
 		}
 
-		public Book Get(int id)
+		public BookDetails Get(int id)
 		{
-			return _context.Books.FirstOrDefault(x => x.Id == id);
+			return _context.Books.OfType<BookDetails>().FirstOrDefault(x => x.Id == id);
 		}
 
-		public Book Get(string isbn)
+		public BookDetails Get(string isbn)
 		{
-			return _context.Books.FirstOrDefault(x => x.Isbn == isbn);
+			return _context.Books.OfType<BookDetails>().FirstOrDefault(x => x.Isbn == isbn);
 		}
 
-		public ICollection<Book> GetAll()
+		public ICollection<BookDetails> GetAll()
 		{
-			return _context.Books.ToList();
+			return _context.Books.OfType<BookDetails>().ToList();
 		}
 
-		public void Insert(Book entity)
+		public void Insert(BookDetails entity)
 		{
 			if (entity != null)
 			{
@@ -40,7 +40,7 @@ namespace Bookstore.DataAccess.Repositories
 			}
 		}
 
-		public void Update(Book entity)
+		public void Update(BookDetails entity)
 		{
 			if (entity != null)
 			{
@@ -55,7 +55,7 @@ namespace Bookstore.DataAccess.Repositories
 			}
 		}
 
-		public void Remove(Book entity)
+		public void Remove(BookDetails entity)
 		{
 			if (entity != null)
 			{

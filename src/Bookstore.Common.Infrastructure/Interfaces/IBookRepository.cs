@@ -2,8 +2,8 @@
 
 namespace Bookstore.Common.Infrastructure.Interfaces
 {
-	public interface IBookRepository : IRepository<Book>
+	public interface IBookRepository : IRepository<BookDetails>
 	{
-		Book Get(string isbn);
+		BookDetails Get(string isbn);
 	}
 }
