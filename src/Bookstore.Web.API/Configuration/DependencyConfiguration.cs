@@ -28,12 +28,13 @@ namespace Bookstore.Web.API.Configuration
 			RegisterDataAccessLayerComponents(container);
 
 			RegisterCommandHandlers(container);
-			RegisterQueriesHandlers(container);
+			RegisterQueryHandlers(container);
 		}
 
-		private static void RegisterQueriesHandlers(Container container)
+		private static void RegisterQueryHandlers(Container container)
 		{
 			container.Register<IQueryHandler<GetUserQuery>, GetUserUseCase>();
+			container.Register<IQueryHandler<GetBookQuery>, GetBookUseCase>();
 		}
 
 		private static void RegisterCommandHandlers(Container container)
@@ -45,6 +46,7 @@ namespace Bookstore.Web.API.Configuration
 		{
 			container.Register<BookstoreContext>(Lifestyle.Scoped);
 			container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
+			container.Register<IBookRepository, BookRepository>(Lifestyle.Scoped);
 		}
 	}
 }

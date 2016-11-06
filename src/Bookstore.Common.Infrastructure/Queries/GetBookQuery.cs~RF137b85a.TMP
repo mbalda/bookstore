@@ -1,5 +1,4 @@
-using Bookstore.Common.Infrastructure.Interfaces;
-using Bookstore.Common.Models.WebModels;
+using Bookstore.Common.Models.DomainModels;
 
 namespace Bookstore.Common.Infrastructure.Queries
 {
@@ -7,9 +6,10 @@ namespace Bookstore.Common.Infrastructure.Queries
 	{
 		public Book Result { get; private set; }
 
-		public int Id { get; }
+		public int Id { get; private set; }
 
 		public bool IsIdKnown { get; }
+
 
 		public bool ContainsResult => Result != null;
 
@@ -27,5 +27,17 @@ namespace Bookstore.Common.Infrastructure.Queries
 		{
 			Result = result;
 		}
+
+	}
+
+	public interface IGetBaseInfoQuery<T>
+	{
+		T Result { get; }
+
+		int Id { get; }
+
+		void SetResult(T result);
+
+		bool IsIdKnown { get; }
 	}
 }

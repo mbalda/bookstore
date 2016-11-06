@@ -1,4 +1,5 @@
-﻿using Bookstore.Common.Models.WebModels;
+﻿using Bookstore.Common.Infrastructure.Interfaces;
+using Bookstore.Common.Models.WebModels;
 
 namespace Bookstore.Common.Infrastructure.Queries
 {

@@ -1,4 +1,4 @@
-namespace Bookstore.Common.Infrastructure.Queries
+namespace Bookstore.Common.Infrastructure.Interfaces
 {
 	public interface IGetBaseInfoQuery<T>
 	{
