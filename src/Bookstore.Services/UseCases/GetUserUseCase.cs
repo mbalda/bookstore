@@ -1,5 +1,7 @@
-﻿using Bookstore.Common.Infrastructure.Interfaces;
+﻿using AutoMapper;
+using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
+using Bookstore.Common.Models.WebModels;
 
 namespace Bookstore.Services.UseCases
 {
@@ -14,7 +16,8 @@ namespace Bookstore.Services.UseCases
 
 		public GetUserQuery Handle(GetUserQuery query)
 		{
-			query.User = query.IsUserIdKnown ? _userRepository.Get(query.UserId) : _userRepository.Get(query.Login);
+			var entityUser = query.IsUserIdKnown ? _userRepository.Get(query.UserId) : _userRepository.Get(query.Login);
+			query.User = Mapper.Map<User>(entityUser);
 
 			return query;
 		}

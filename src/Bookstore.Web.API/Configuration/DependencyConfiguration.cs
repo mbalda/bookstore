@@ -7,7 +7,7 @@ using Bookstore.Services.UseCases;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 
-namespace Bookstore.Web.API.IoC
+namespace Bookstore.Web.API.Configuration
 {
 	public static class DependencyConfiguration
 	{

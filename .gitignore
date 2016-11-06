@@ -16,3 +16,15 @@
 /tests/Bookstore.Web.API.Tests/obj/Debug
 /src/Bookstore.Services/bin/Debug
 /src/Bookstore.Services/obj/Debug
+/src/Bookstore.Web.API/obj/Release
+/src/Bookstore.DataAccess/obj/Release
+/src/Bookstore.Services/obj/Release
+/src/Bookstore.Services/bin/Release
+/src/Bookstore.Web.API/Properties/PublishProfiles
+/src/Bookstore.DataAccess/bin/Release/Bookstore.Common.Infrastructure.dll
+/src/Bookstore.Common.Models/obj/Release
+/src/Bookstore.DataAccess/bin/Release
+/src/Bookstore.Common.Models/bin/Release
+/src/Bookstore.Common.Infrastructure/obj/Release
+/src/Bookstore.Common.Infrastructure/bin/Release
+/tests/Bookstore.Web.API.Tests/obj/Release

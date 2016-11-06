@@ -1,4 +1,4 @@
-﻿using Bookstore.Web.API.IoC;
+﻿using Bookstore.Web.API.Configuration;
 using System.Web;
 using System.Web.Http;
 
@@ -10,6 +10,7 @@ namespace Bookstore.Web.API
 		{
 			GlobalConfiguration.Configure(WebApiConfig.Register);
 			DependencyConfiguration.Configure();
+			ModelsMappings.Configuration();
 		}
 	}
 }

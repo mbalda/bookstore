@@ -1,4 +1,4 @@
-﻿using Bookstore.Common.Models.DomainModels;
+﻿using Bookstore.Common.Models.WebModels;
 
 namespace Bookstore.Common.Infrastructure.Queries
 {
