@@ -28,10 +28,10 @@ namespace Bookstore.Web.API.Controllers
 
 			var query = new GetUserQuery(userId);
 
-			var response = _getUserUseCase.Handle(query);
+			_getUserUseCase.Handle(query);
 
-			if (response.ContainsUser)
-				return Ok(response.User);
+			if (query.ContainsResult)
+				return Ok(query.Result);
 
 			return NotFound();
 		}
@@ -47,10 +47,10 @@ namespace Bookstore.Web.API.Controllers
 
 			var query = new GetUserQuery(command.Login);
 
-			var response = _getUserUseCase.Handle(query);
+			_getUserUseCase.Handle(query);
 
-			if (response.ContainsUser)
-				return Created("", response.User);
+			if (query.ContainsResult)
+				return Created("", query.Result);
 
 			return NotFound();
 		}

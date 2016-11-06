@@ -2,6 +2,6 @@
 {
 	public interface IQueryHandler<T>
 	{
-		T Handle(T query);
+		void Handle(T query);
 	}
 }

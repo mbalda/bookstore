@@ -14,12 +14,11 @@ namespace Bookstore.Services.UseCases
 			_userRepository = userRepository;
 		}
 
-		public GetUserQuery Handle(GetUserQuery query)
+		public void Handle(GetUserQuery query)
 		{
-			var entityUser = query.IsUserIdKnown ? _userRepository.Get(query.UserId) : _userRepository.Get(query.Login);
-			query.User = Mapper.Map<User>(entityUser);
+			var entityUser = query.IsIdKnown ? _userRepository.Get(query.Id) : _userRepository.Get(query.Login);
 
-			return query;
+			query.SetResult(Mapper.Map<User>(entityUser));
 		}
 	}
 }

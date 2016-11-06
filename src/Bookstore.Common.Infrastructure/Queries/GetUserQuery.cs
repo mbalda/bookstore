@@ -2,33 +2,37 @@
 
 namespace Bookstore.Common.Infrastructure.Queries
 {
-	public class GetUserQuery
+	public class GetUserQuery : IGetBaseInfoQuery<User>
 	{
-		public int UserId { get; private set; }
+		public int Id { get; }
 
 		public string Login { get; private set; }
 
-		public User User { get; set; }
+		public User Result { get; private set; }
 
-		public bool IsUserIdKnown { get; private set; }
+		public bool IsIdKnown { get; }
 
-		public bool ContainsUser => User != null;
+		public bool ContainsResult => Result != null;
 
-		public GetUserQuery(int userId)
+		public GetUserQuery(int id)
 		{
-			UserId = userId;
-			IsUserIdKnown = true;
+			Id = id;
+			IsIdKnown = true;
 		}
 
 		public GetUserQuery(string login)
 		{
 			Login = login;
-			IsUserIdKnown = false;
+			IsIdKnown = false;
+		}
+		public void SetResult(User result)
+		{
+			Result = result;
 		}
 
 		public static bool IsValidUserId(int userId)
 		{
-			return userId >= 0;
+			return userId > 0;
 		}
 	}
 }

@@ -46,7 +46,9 @@
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\GetBookQuery.cs" />
     <Compile Include="Queries\GetUserQuery.cs" />
+    <Compile Include="Queries\IGetBaseInfoQuery.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bookstore.Common.Models\Bookstore.Common.Models.csproj">
