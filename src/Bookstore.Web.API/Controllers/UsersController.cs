@@ -1,6 +1,7 @@
 ﻿using Bookstore.Common.Infrastructure.Commands;
 using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
+using Bookstore.Web.API.Helpers;
 using System.Web.Http;
 
 namespace Bookstore.Web.API.Controllers
@@ -23,7 +24,7 @@ namespace Bookstore.Web.API.Controllers
 		[Route("{userId}")]
 		public IHttpActionResult GetUser([FromUri]int userId)
 		{
-			if (!GetUserQuery.IsValidUserId(userId))
+			if (!Validators.IsIdValid(userId))
 				return BadRequest();
 
 			var query = new GetUserQuery(userId);

@@ -1,5 +1,6 @@
 ﻿using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Services.UseCases;
+using Bookstore.Web.API.Helpers;
 using System.Web.Http;
 
 namespace Bookstore.Web.API.Controllers
@@ -18,7 +19,7 @@ namespace Bookstore.Web.API.Controllers
 		[Route("{bookId}")]
 		public IHttpActionResult GetBookBaseInfo([FromUri]int bookId)
 		{
-			if (!GetUserQuery.IsValidUserId(bookId))
+			if (!Validators.IsIdValid(bookId))
 				return BadRequest();
 
 			var query = new GetBookQuery(bookId);
@@ -35,7 +36,7 @@ namespace Bookstore.Web.API.Controllers
 		[Route("{bookId}/details")]
 		public IHttpActionResult GetBookDetails([FromUri]int bookId)
 		{
-			if (!GetUserQuery.IsValidUserId(bookId))
+			if (!Validators.IsIdValid(bookId))
 				return BadRequest();
 
 			var query = new GetBookQuery(bookId);

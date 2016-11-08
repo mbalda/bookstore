@@ -30,10 +30,5 @@ namespace Bookstore.Common.Infrastructure.Queries
 		{
 			Result = result;
 		}
-
-		public static bool IsValidUserId(int userId)
-		{
-			return userId > 0;
-		}
 	}
 }

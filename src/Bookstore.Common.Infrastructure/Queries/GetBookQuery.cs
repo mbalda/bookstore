@@ -3,9 +3,9 @@ using Bookstore.Common.Models.WebModels;
 
 namespace Bookstore.Common.Infrastructure.Queries
 {
-	public class GetBookQuery : IGetBaseInfoQuery<Book>
+	public class GetBookQuery : IGetBaseInfoQuery<BookInfo>
 	{
-		public Book Result { get; private set; }
+		public BookInfo Result { get; private set; }
 
 		public int Id { get; }
 
@@ -19,11 +19,7 @@ namespace Bookstore.Common.Infrastructure.Queries
 			IsIdKnown = true;
 		}
 
-		public static bool IsValidId(int bookId)
-		{
-			return bookId > 0;
-		}
-		public void SetResult(Book result)
+		public void SetResult(BookInfo result)
 		{
 			Result = result;
 		}

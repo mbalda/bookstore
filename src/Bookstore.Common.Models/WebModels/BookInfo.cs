@@ -1,12 +1,14 @@
-﻿namespace Bookstore.Common.Models.DomainModels
+﻿namespace Bookstore.Common.Models.WebModels
 {
-	class Store
+	public class BookInfo
 	{
 		public int Id { get; set; }
 
-		public int BookId { get; set; }
+		public string Author { get; set; }
 
-		public int Ammount { get; set; }
+		public string Title { get; set; }
+
+		public string Isbn { get; set; }
 
 		public bool IsAvailable { get; set; }
 

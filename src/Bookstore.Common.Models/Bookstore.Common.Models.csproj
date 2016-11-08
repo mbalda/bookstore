@@ -42,12 +42,12 @@
   <ItemGroup>
     <Compile Include="DomainModels\BookDetails.cs" />
     <Compile Include="DomainModels\Book.cs" />
-    <Compile Include="DomainModels\Store.cs" />
+    <Compile Include="DomainModels\BookInStore.cs" />
     <Compile Include="DomainModels\User.cs" />
     <Compile Include="DomainModels\Image.cs" />
     <Compile Include="DomainModels\Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebModels\Book.cs" />
+    <Compile Include="WebModels\BookInfo.cs" />
     <Compile Include="WebModels\User.cs" />
   </ItemGroup>
   <ItemGroup />

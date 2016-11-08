@@ -11,6 +11,8 @@ namespace Bookstore.DataAccess.Database.Configurations
 		{
 			ToTable("Books");
 
+			Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
 			Property(x => x.Isbn).HasMaxLength(13)
 				.HasColumnAnnotation(
 					IndexAnnotation.AnnotationName, new IndexAnnotation(

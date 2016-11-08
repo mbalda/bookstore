@@ -17,5 +17,7 @@ namespace Bookstore.Common.Models.DomainModels
 		public virtual ICollection<Image> Images { get; set; }
 
 		public virtual ICollection<Order> Orders { get; set; }
+
+		public virtual BookInStore BookInStore { get; set; }
 	}
 }

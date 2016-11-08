@@ -14,6 +14,8 @@ namespace Bookstore.DataAccess.Database
 
 		public DbSet<Order> Orders { get; set; }
 
+		public DbSet<BookInStore> BooksInStore { get; set; }
+
 		public BookstoreContext() : base("name=BookstoreConnectionString")
 		{
 			System.Data.Entity.Database.SetInitializer(new BookstoreInitializer());
@@ -26,6 +28,8 @@ namespace Bookstore.DataAccess.Database
 			modelBuilder.Configurations.Add(new BookEntityConfiguration());
 			modelBuilder.Configurations.Add(new BookDetailsEntityConfiguration());
 			modelBuilder.Configurations.Add(new OrderEntityConfiguration());
+			modelBuilder.Configurations.Add(new BookInStoreEntityConfiguration());
+
 			base.OnModelCreating(modelBuilder);
 		}
 	}

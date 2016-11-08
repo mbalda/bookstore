@@ -47,6 +47,7 @@ namespace Bookstore.Web.API.Configuration
 			container.Register<BookstoreContext>(Lifestyle.Scoped);
 			container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
 			container.Register<IBookRepository, BookRepository>(Lifestyle.Scoped);
+			container.Register<IStoreRepository, StoreRepository>(Lifestyle.Scoped);
 		}
 	}
 }

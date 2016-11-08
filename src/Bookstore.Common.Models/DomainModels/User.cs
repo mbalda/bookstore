@@ -1,4 +1,6 @@
-﻿namespace Bookstore.Common.Models.DomainModels
+﻿using System.Collections.Generic;
+
+namespace Bookstore.Common.Models.DomainModels
 {
 	public class User
 	{
@@ -7,5 +9,7 @@
 		public string Login { get; set; }
 
 		public string Email { get; set; }
+
+		public virtual ICollection<Order> Orders { get; set; }
 	}
 }
