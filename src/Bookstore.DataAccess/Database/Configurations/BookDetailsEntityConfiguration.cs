@@ -8,6 +8,8 @@ namespace Bookstore.DataAccess.Database.Configurations
 		public BookDetailsEntityConfiguration()
 		{
 			Property(x => x.Pages).IsOptional();
+
+			HasOptional(x => x.BookInStore).WithRequired(x => x.Book);
 		}
 	}
 }

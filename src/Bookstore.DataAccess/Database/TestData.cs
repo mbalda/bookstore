@@ -17,6 +17,7 @@ namespace Bookstore.DataAccess.Database
 			{
 				new BookDetails
 				{
+					Id = 1,
 					Author = "Uncle Bob",
 					Title = "Clean Code",
 					Isbn = "ISBN-1234-5",
@@ -25,6 +26,7 @@ namespace Bookstore.DataAccess.Database
 				},
 				new BookDetails
 				{
+					Id = 2,
 					Author = "Martin Fowler",
 					Title = "Planning Extreme Programming",
 					Isbn = "ISBN-1234-6",
@@ -33,6 +35,7 @@ namespace Bookstore.DataAccess.Database
 				},
 				new BookDetails
 				{
+					Id = 3,
 					Author = "Roy Osherove",
 					Title = "Art of Unit Testing",
 					Isbn = "9781617290893",
@@ -41,33 +44,39 @@ namespace Bookstore.DataAccess.Database
 				}
 			});
 
-			//context.BooksInStore.AddRange(new[]
-			//{
-			//	new BookInStore
-			//	{
-			//		Ammount = 50,
-			//		Discount = 0,
-			//		IsAvailable = true,
-			//		IsInDiscount = false,
-			//		Price = 55m
-			//	},
-			//	new BookInStore
-			//	{
-			//		Ammount = 10,
-			//		Discount = 10,
-			//		IsAvailable = true,
-			//		IsInDiscount = true,
-			//		Price = 30m
-			//	},
-			//	new BookInStore
-			//	{
-			//		Ammount = 0,
-			//		Discount = 0,
-			//		IsAvailable = false,
-			//		IsInDiscount = false,
-			//		Price = 27.50m
-			//	}
-			//});
+			context.BooksInStore.AddRange(new[]
+			{
+				new BookInStore
+				{
+					Id = 1,
+					BookId = 1,
+					Ammount = 50,
+					Discount = 0,
+					IsAvailable = true,
+					IsInDiscount = false,
+					Price = 55m
+				},
+				new BookInStore
+				{
+					Id = 2,
+					BookId = 2,
+					Ammount = 10,
+					Discount = 10,
+					IsAvailable = true,
+					IsInDiscount = true,
+					Price = 30m
+				},
+				new BookInStore
+				{
+					Id = 3,
+					BookId = 3,
+					Ammount = 0,
+					Discount = 0,
+					IsAvailable = false,
+					IsInDiscount = false,
+					Price = 27.50m
+				}
+			});
 		}
 	}
 }

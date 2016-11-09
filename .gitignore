@@ -28,3 +28,4 @@
 /src/Bookstore.Common.Infrastructure/obj/Release
 /src/Bookstore.Common.Infrastructure/bin/Release
 /tests/Bookstore.Web.API.Tests/obj/Release
+/src/Bookstore.Services/bin
