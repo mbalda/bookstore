@@ -1,5 +1,6 @@
-﻿using Bookstore.Common.Infrastructure.Queries;
-using Bookstore.Services.UseCases;
+﻿using Bookstore.Common.Infrastructure.Interfaces;
+using Bookstore.Common.Infrastructure.Queries;
+using Bookstore.Common.Models.WebModels;
 using Bookstore.Web.API.Helpers;
 using System.Web.Http;
 
@@ -8,11 +9,15 @@ namespace Bookstore.Web.API.Controllers
 	[RoutePrefix("api/books")]
 	public class BooksController : ApiController
 	{
-		private readonly GetBookUseCase _getBookUseCase;
+		private readonly IQueryHandler<GetBookQuery, BookInfo> _getBookBaseInfoUseCase;
+		private readonly IQueryHandler<GetBookQuery, BookInfoWithDetails> _getBookInfoWithDetailsUseCase;
 
-		public BooksController(GetBookUseCase getBookUseCase)
+		public BooksController(
+			IQueryHandler<GetBookQuery, BookInfo> getBookBaseInfoUseCase,
+			IQueryHandler<GetBookQuery, BookInfoWithDetails> getBookInfoWithDetailsUseCase)
 		{
-			_getBookUseCase = getBookUseCase;
+			_getBookBaseInfoUseCase = getBookBaseInfoUseCase;
+			_getBookInfoWithDetailsUseCase = getBookInfoWithDetailsUseCase;
 		}
 
 		[HttpGet]
@@ -24,7 +29,7 @@ namespace Bookstore.Web.API.Controllers
 
 			var query = new GetBookQuery(bookId);
 
-			var result = _getBookUseCase.Handle(query);
+			var result = _getBookBaseInfoUseCase.Handle(query);
 
 			if (result != null)
 				return Ok(result);
@@ -41,9 +46,7 @@ namespace Bookstore.Web.API.Controllers
 
 			var query = new GetBookQuery(bookId);
 
-
-			// TODO: another use case
-			var result = _getBookUseCase.Handle(query);
+			var result = _getBookInfoWithDetailsUseCase.Handle(query);
 
 			if (result != null)
 				return Ok(result);

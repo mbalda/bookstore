@@ -14,9 +14,13 @@ namespace Bookstore.Web.API.Configuration
 
 				cfg.CreateMap<Models.WebModels.BookInfo, Models.DomainModels.Book>();
 				cfg.CreateMap<Models.DomainModels.Book, Models.WebModels.BookInfo>();
-
 				cfg.CreateMap<Models.WebModels.BookInfo, Models.DomainModels.BookInStore>();
 				cfg.CreateMap<Models.DomainModels.BookInStore, Models.WebModels.BookInfo>();
+
+				cfg.CreateMap<Models.WebModels.BookInfoWithDetails, Models.DomainModels.BookInStore>();
+				cfg.CreateMap<Models.DomainModels.BookInStore, Models.WebModels.BookInfoWithDetails>();
+				cfg.CreateMap<Models.WebModels.BookInfoWithDetails, Models.DomainModels.BookDetails>();
+				cfg.CreateMap<Models.DomainModels.BookDetails, Models.WebModels.BookInfoWithDetails>();
 			});
 		}
 	}

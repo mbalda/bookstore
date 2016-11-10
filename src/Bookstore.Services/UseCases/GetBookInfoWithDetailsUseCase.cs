@@ -6,23 +6,23 @@ using Bookstore.Common.Models.WebModels;
 
 namespace Bookstore.Services.UseCases
 {
-	public class GetBookUseCase : IQueryHandler<GetBookQuery, BookInfo>
+	public class GetBookInfoWithDetailsUseCase : IQueryHandler<GetBookQuery, BookInfoWithDetails>
 	{
 		private readonly IBookRepository _bookRepository;
 		private readonly IStoreRepository _storeRepository;
 
-		public GetBookUseCase(IBookRepository bookRepository, IStoreRepository storeRepository)
+		public GetBookInfoWithDetailsUseCase(IBookRepository bookRepository, IStoreRepository storeRepository)
 		{
 			_bookRepository = bookRepository;
 			_storeRepository = storeRepository;
 		}
 
-		public BookInfo Handle(GetBookQuery query)
+		public BookInfoWithDetails Handle(GetBookQuery query)
 		{
 			var entityBook = _bookRepository.Get(query.Id);
 			var entityStore = _storeRepository.GetByBookId(query.Id);
 
-			BookInfo bookInfo = Mapper.Map<BookDetails, BookInfo>(entityBook);
+			BookInfoWithDetails bookInfo = Mapper.Map<BookDetails, BookInfoWithDetails>(entityBook);
 			Mapper.Map(entityStore, bookInfo);
 
 			return bookInfo;

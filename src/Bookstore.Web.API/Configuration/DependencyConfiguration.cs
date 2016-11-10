@@ -35,7 +35,8 @@ namespace Bookstore.Web.API.Configuration
 		private static void RegisterQueryHandlers(Container container)
 		{
 			container.Register<IQueryHandler<GetUserQuery, User>, GetUserUseCase>();
-			container.Register<IQueryHandler<GetBookQuery, BookInfo>, GetBookUseCase>();
+			container.Register<IQueryHandler<GetBookQuery, BookInfo>, GetBookBaseInfoUseCase>();
+			container.Register<IQueryHandler<GetBookQuery, BookInfoWithDetails>, GetBookInfoWithDetailsUseCase>();
 		}
 
 		private static void RegisterCommandHandlers(Container container)
