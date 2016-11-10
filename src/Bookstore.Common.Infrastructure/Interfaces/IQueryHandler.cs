@@ -1,7 +1,7 @@
 ﻿namespace Bookstore.Common.Infrastructure.Interfaces
 {
-	public interface IQueryHandler<in T>
+	public interface IQueryHandler<in TQuery, out TResult>
 	{
-		void Handle(T query);
+		TResult Handle(TQuery query);
 	}
 }

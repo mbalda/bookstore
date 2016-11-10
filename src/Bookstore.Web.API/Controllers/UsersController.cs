@@ -1,6 +1,7 @@
 ﻿using Bookstore.Common.Infrastructure.Commands;
 using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
+using Bookstore.Common.Models.WebModels;
 using Bookstore.Web.API.Helpers;
 using System.Web.Http;
 
@@ -9,11 +10,11 @@ namespace Bookstore.Web.API.Controllers
 	[RoutePrefix("api/users")]
 	public class UsersController : ApiController
 	{
-		private readonly IQueryHandler<GetUserQuery> _getUserUseCase;
+		private readonly IQueryHandler<GetUserQuery, User> _getUserUseCase;
 		private readonly ICommandHandler<RegisterNewUserCommand> _registerUserUseCase;
 
 		public UsersController(
-			IQueryHandler<GetUserQuery> getUserUseCase,
+			IQueryHandler<GetUserQuery, User> getUserUseCase,
 			ICommandHandler<RegisterNewUserCommand> registerUserUseCase)
 		{
 			_getUserUseCase = getUserUseCase;
@@ -29,10 +30,10 @@ namespace Bookstore.Web.API.Controllers
 
 			var query = new GetUserQuery(userId);
 
-			_getUserUseCase.Handle(query);
+			var result = _getUserUseCase.Handle(query);
 
-			if (query.ContainsResult)
-				return Ok(query.Result);
+			if (result != null)
+				return Ok(result);
 
 			return NotFound();
 		}
@@ -48,10 +49,10 @@ namespace Bookstore.Web.API.Controllers
 
 			var query = new GetUserQuery(command.Login);
 
-			_getUserUseCase.Handle(query);
+			var result = _getUserUseCase.Handle(query);
 
-			if (query.ContainsResult)
-				return Created("", query.Result);
+			if (result != null)
+				return Created("", result);
 
 			return NotFound();
 		}

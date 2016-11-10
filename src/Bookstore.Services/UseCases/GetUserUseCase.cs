@@ -5,7 +5,7 @@ using Bookstore.Common.Models.WebModels;
 
 namespace Bookstore.Services.UseCases
 {
-	public class GetUserUseCase : IQueryHandler<GetUserQuery>
+	public class GetUserUseCase : IQueryHandler<GetUserQuery, User>
 	{
 		private readonly IUserRepository _userRepository;
 
@@ -14,11 +14,11 @@ namespace Bookstore.Services.UseCases
 			_userRepository = userRepository;
 		}
 
-		public void Handle(GetUserQuery query)
+		public User Handle(GetUserQuery query)
 		{
 			var entityUser = query.IsIdKnown ? _userRepository.Get(query.Id) : _userRepository.Get(query.Login);
 
-			query.SetResult(Mapper.Map<User>(entityUser));
+			return Mapper.Map<User>(entityUser);
 		}
 	}
 }

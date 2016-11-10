@@ -1,19 +1,12 @@
-﻿using Bookstore.Common.Infrastructure.Interfaces;
-using Bookstore.Common.Models.WebModels;
-
-namespace Bookstore.Common.Infrastructure.Queries
+﻿namespace Bookstore.Common.Infrastructure.Queries
 {
-	public class GetUserQuery : IGetBaseInfoQuery<User>
+	public class GetUserQuery
 	{
 		public int Id { get; }
 
 		public string Login { get; private set; }
 
-		public User Result { get; private set; }
-
 		public bool IsIdKnown { get; }
-
-		public bool ContainsResult => Result != null;
 
 		public GetUserQuery(int id)
 		{
@@ -25,10 +18,6 @@ namespace Bookstore.Common.Infrastructure.Queries
 		{
 			Login = login;
 			IsIdKnown = false;
-		}
-		public void SetResult(User result)
-		{
-			Result = result;
 		}
 	}
 }

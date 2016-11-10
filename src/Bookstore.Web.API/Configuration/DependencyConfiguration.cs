@@ -1,6 +1,7 @@
 ﻿using Bookstore.Common.Infrastructure.Commands;
 using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
+using Bookstore.Common.Models.WebModels;
 using Bookstore.DataAccess.Database;
 using Bookstore.DataAccess.Repositories;
 using Bookstore.Services.UseCases;
@@ -33,8 +34,8 @@ namespace Bookstore.Web.API.Configuration
 
 		private static void RegisterQueryHandlers(Container container)
 		{
-			container.Register<IQueryHandler<GetUserQuery>, GetUserUseCase>();
-			container.Register<IQueryHandler<GetBookQuery>, GetBookUseCase>();
+			container.Register<IQueryHandler<GetUserQuery, User>, GetUserUseCase>();
+			container.Register<IQueryHandler<GetBookQuery, BookInfo>, GetBookUseCase>();
 		}
 
 		private static void RegisterCommandHandlers(Container container)

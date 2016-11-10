@@ -24,10 +24,10 @@ namespace Bookstore.Web.API.Controllers
 
 			var query = new GetBookQuery(bookId);
 
-			_getBookUseCase.Handle(query);
+			var result = _getBookUseCase.Handle(query);
 
-			if (query.ContainsResult)
-				return Ok(query.Result);
+			if (result != null)
+				return Ok(result);
 
 			return NotFound();
 		}
@@ -43,10 +43,10 @@ namespace Bookstore.Web.API.Controllers
 
 
 			// TODO: another use case
-			_getBookUseCase.Handle(query);
+			var result = _getBookUseCase.Handle(query);
 
-			if (query.ContainsResult)
-				return Ok(query.Result);
+			if (result != null)
+				return Ok(result);
 
 			return NotFound();
 		}
