@@ -1,6 +1,7 @@
 ﻿using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Models.DomainModels;
 using Bookstore.DataAccess.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,12 +18,14 @@ namespace Bookstore.DataAccess.Repositories
 
 		public BookDetails Get(int id)
 		{
-			return _context.Books.OfType<BookDetails>().FirstOrDefault(x => x.Id == id);
+			Func<BookDetails, bool> query = x => x.Id == id;
+			return GetBookForQuery(query);
 		}
 
 		public BookDetails Get(string isbn)
 		{
-			return _context.Books.OfType<BookDetails>().FirstOrDefault(x => x.Isbn == isbn);
+			Func<BookDetails, bool> query = x => x.Isbn == isbn;
+			return GetBookForQuery(query);
 		}
 
 		public ICollection<BookDetails> GetAll()
@@ -63,6 +66,11 @@ namespace Bookstore.DataAccess.Repositories
 
 				_context.SaveChanges();
 			}
+		}
+
+		private BookDetails GetBookForQuery(Func<BookDetails, bool> query)
+		{
+			return _context.Books.OfType<BookDetails>().FirstOrDefault(query);
 		}
 	}
 }

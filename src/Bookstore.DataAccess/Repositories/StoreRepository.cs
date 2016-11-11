@@ -25,6 +25,11 @@ namespace Bookstore.DataAccess.Repositories
 			return _context.BooksInStore.FirstOrDefault(x => x.BookId == bookId);
 		}
 
+		public ICollection<BookInStore> GetAvailableBooks()
+		{
+			return _context.BooksInStore.Where(x => x.IsAvailable).ToList();
+		}
+
 		public ICollection<BookInStore> GetAll()
 		{
 			return _context.BooksInStore.ToList();

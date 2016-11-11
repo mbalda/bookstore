@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UseCases\GetBooksBaseInfoUseCase.cs" />
     <Compile Include="UseCases\GetBookInfoWithDetailsUseCase.cs" />
     <Compile Include="UseCases\GetBookBaseInfoUseCase.cs" />
     <Compile Include="UseCases\RegisterNewUserUseCase.cs" />
