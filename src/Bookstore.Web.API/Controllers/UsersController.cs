@@ -40,8 +40,13 @@ namespace Bookstore.Web.API.Controllers
 
 		[HttpPost]
 		[Route("")]
-		public IHttpActionResult SignUp([FromBody]RegisterNewUserCommand command)
+		public IHttpActionResult SignUp([FromBody]NewUser newUser)
 		{
+			if (newUser == null)
+				return BadRequest();
+
+			var command = new RegisterNewUserCommand(newUser);
+
 			if (!command.IsValidCommand())
 				return BadRequest();
 

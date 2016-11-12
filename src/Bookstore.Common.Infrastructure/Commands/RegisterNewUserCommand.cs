@@ -1,15 +1,17 @@
-﻿namespace Bookstore.Common.Infrastructure.Commands
+﻿using Bookstore.Common.Models.WebModels;
+
+namespace Bookstore.Common.Infrastructure.Commands
 {
 	public class RegisterNewUserCommand
 	{
-		public string Login { get; private set; }
+		public string Login { get; }
 
-		public string Email { get; private set; }
+		public string Email { get; }
 
-		public RegisterNewUserCommand(string login, string email)
+		public RegisterNewUserCommand(NewUser userToRegister)
 		{
-			Login = login;
-			Email = email;
+			Login = userToRegister.Login;
+			Email = userToRegister.Email;
 		}
 
 		public bool IsValidCommand()
