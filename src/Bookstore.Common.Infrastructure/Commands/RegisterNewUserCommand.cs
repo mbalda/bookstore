@@ -1,8 +1,9 @@
-﻿using Bookstore.Common.Models.WebModels;
+﻿using Bookstore.Common.Infrastructure.Interfaces;
+using Bookstore.Common.Models.WebModels;
 
 namespace Bookstore.Common.Infrastructure.Commands
 {
-	public class RegisterNewUserCommand
+	public class RegisterNewUserCommand : ICommandValidator
 	{
 		public string Login { get; }
 

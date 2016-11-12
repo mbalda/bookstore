@@ -1,4 +1,5 @@
-﻿using Bookstore.Common.Infrastructure.Interfaces;
+﻿using Bookstore.Common.Infrastructure.Commands;
+using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
 using Bookstore.Web.API.Helpers;
@@ -13,15 +14,18 @@ namespace Bookstore.Web.API.Controllers
 		private readonly IQueryHandler<GetBookQuery, BookInfo> _getBookBaseInfoUseCase;
 		private readonly IQueryHandler<GetBookQuery, BookInfoWithDetails> _getBookInfoWithDetailsUseCase;
 		private readonly IQueryHandler<GetBooksQuery, ICollection<BookInfo>> _getBooksBaseInfoUseCase;
+		private readonly ICommandHandler<AddNewBookCommand> _addNewBookToStoreUseCase;
 
 		public BooksController(
 			IQueryHandler<GetBookQuery, BookInfo> getBookBaseInfoUseCase,
 			IQueryHandler<GetBookQuery, BookInfoWithDetails> getBookInfoWithDetailsUseCase,
-			IQueryHandler<GetBooksQuery, ICollection<BookInfo>> getBooksBaseInfoUseCase)
+			IQueryHandler<GetBooksQuery, ICollection<BookInfo>> getBooksBaseInfoUseCase,
+			ICommandHandler<AddNewBookCommand> addNewBookToStoreUseCase)
 		{
 			_getBookBaseInfoUseCase = getBookBaseInfoUseCase;
 			_getBookInfoWithDetailsUseCase = getBookInfoWithDetailsUseCase;
 			_getBooksBaseInfoUseCase = getBooksBaseInfoUseCase;
+			_addNewBookToStoreUseCase = addNewBookToStoreUseCase;
 		}
 
 		[HttpGet]
@@ -77,6 +81,30 @@ namespace Bookstore.Web.API.Controllers
 				return BadRequest();
 
 			var query = new GetBookQuery(bookId);
+
+			var result = _getBookInfoWithDetailsUseCase.Handle(query);
+
+			if (result != null)
+				return Ok(result);
+
+			return NotFound();
+		}
+
+		[HttpPost]
+		[Route("")]
+		public IHttpActionResult AddNewBookToStore([FromBody]NewBook newBook)
+		{
+			if (newBook == null)
+				return BadRequest();
+
+			var command = new AddNewBookCommand(newBook);
+
+			if (!command.IsValidCommand())
+				return BadRequest();
+
+			_addNewBookToStoreUseCase.Handle(command);
+
+			var query = new GetBookQuery(newBook.Isbn);
 
 			var result = _getBookInfoWithDetailsUseCase.Handle(query);
 

@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\AddNewBookCommand.cs" />
     <Compile Include="Commands\RegisterNewUserCommand.cs" />
+    <Compile Include="Interfaces\ICommandValidator.cs" />
     <Compile Include="Interfaces\IStoreRepository.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />
     <Compile Include="Interfaces\ICommandHandler.cs" />

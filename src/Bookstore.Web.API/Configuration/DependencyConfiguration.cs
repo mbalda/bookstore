@@ -44,6 +44,7 @@ namespace Bookstore.Web.API.Configuration
 		private static void RegisterCommandHandlers(Container container)
 		{
 			container.Register<ICommandHandler<RegisterNewUserCommand>, RegisterNewUserUseCase>();
+			container.Register<ICommandHandler<AddNewBookCommand>, AddNewBookToStoreUseCase>();
 		}
 
 		private static void RegisterDataAccessLayerComponents(Container container)
