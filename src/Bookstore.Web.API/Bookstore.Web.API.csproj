@@ -113,11 +113,12 @@
     <Compile Include="Configuration\ModelsMappings.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="ErrorHandling\InvalidModelResult.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Configuration\DependencyConfiguration.cs" />
-    <Compile Include="Helpers\NotImplementedExceptionFilterAttribute.cs" />
+    <Compile Include="ErrorHandling\NotImplementedExceptionFilterAttribute.cs" />
     <Compile Include="Helpers\Validators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

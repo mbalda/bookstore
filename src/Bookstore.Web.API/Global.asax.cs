@@ -1,5 +1,5 @@
 ﻿using Bookstore.Web.API.Configuration;
-using Bookstore.Web.API.Helpers;
+using Bookstore.Web.API.ErrorHandling;
 using System.Web;
 using System.Web.Http;
 
