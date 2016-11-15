@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 
-namespace Bookstore.Web.API.ErrorHandling
+namespace Bookstore.Web.API.CustomResults
 {
 	public class InvalidModelResult : IHttpActionResult
 	{
@@ -22,7 +22,12 @@ namespace Bookstore.Web.API.ErrorHandling
 
 		public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
 		{
-			return Task.FromResult(_requestMessage.CreateErrorResponse(_statusCode, new HttpError(_modelState, false)));
+			return Task.FromResult(Execute());
+		}
+
+		public HttpResponseMessage Execute()
+		{
+			return _requestMessage.CreateErrorResponse(_statusCode, new HttpError(_modelState, true));
 		}
 	}
 }

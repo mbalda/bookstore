@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
+using Bookstore.Web.API.CustomResults;
 
 namespace Bookstore.Web.API.Controllers
 {

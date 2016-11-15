@@ -113,7 +113,7 @@
     <Compile Include="Configuration\ModelsMappings.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="ErrorHandling\InvalidModelResult.cs" />
+    <Compile Include="CustomResults\InvalidModelResult.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
