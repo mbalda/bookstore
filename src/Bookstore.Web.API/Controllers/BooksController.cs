@@ -3,6 +3,7 @@ using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
 using Bookstore.Web.API.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Web.Http;
 
@@ -94,8 +95,8 @@ namespace Bookstore.Web.API.Controllers
 		[Route("")]
 		public IHttpActionResult AddNewBookToStore([FromBody]NewBook newBook)
 		{
-			if (newBook == null)
-				return BadRequest();
+			if (!ModelState.IsValid)
+				return BadRequest("Model is invalid.");
 
 			var command = new AddNewBookCommand(newBook);
 
@@ -112,6 +113,13 @@ namespace Bookstore.Web.API.Controllers
 				return Ok(result);
 
 			return NotFound();
+		}
+
+		[HttpPut]
+		[Route("{bookId}")]
+		public IHttpActionResult UpdateBook([FromUri]int bookId)
+		{
+			throw new NotImplementedException("This method is not implemented in this version of API.");
 		}
 	}
 }

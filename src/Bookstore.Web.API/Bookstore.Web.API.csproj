@@ -117,6 +117,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Configuration\DependencyConfiguration.cs" />
+    <Compile Include="Helpers\NotImplementedExceptionFilterAttribute.cs" />
     <Compile Include="Helpers\Validators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

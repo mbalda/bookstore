@@ -13,6 +13,10 @@ namespace Bookstore.DataAccess.Database.Configurations
 
 			Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
+			Property(x => x.Author).HasMaxLength(50);
+
+			Property(x => x.Title).HasMaxLength(100);
+
 			Property(x => x.Isbn).HasMaxLength(13)
 				.HasColumnAnnotation(
 					IndexAnnotation.AnnotationName, new IndexAnnotation(

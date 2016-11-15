@@ -3,6 +3,7 @@ using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
 using Bookstore.Web.API.Helpers;
+using System;
 using System.Web.Http;
 
 namespace Bookstore.Web.API.Controllers
@@ -60,6 +61,13 @@ namespace Bookstore.Web.API.Controllers
 				return Created("", result);
 
 			return NotFound();
+		}
+
+		[HttpDelete]
+		[Route("{userId}")]
+		public IHttpActionResult DeleteUser([FromUri]int userId)
+		{
+			throw new NotImplementedException("This method is not implemented in this version of API.");
 		}
 	}
 }
