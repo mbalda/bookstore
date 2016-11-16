@@ -27,9 +27,10 @@ namespace Bookstore.Services.UseCases
 				BookInStore = new BookInStore
 				{
 					Price = command.Price,
-					IsInDiscount = false,
+					Discount = command.Discount,
+					IsInDiscount = command.Discount > 0,
 					IsAvailable = command.Amount > 0,
-					Ammount = command.Amount
+					Amount = command.Amount
 				}
 			};
 

@@ -1,22 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Xml.Serialization;
 
-namespace Bookstore.Common.Models.WebModels
+namespace Bookstore.Clients.ConsoleApp
 {
-	public class NewBook
+	public class Book
 	{
-		[Required]
-		[MaxLength(50)]
 		public string Author { get; set; }
 
-		[Required]
-		[MaxLength(100)]
 		public string Title { get; set; }
 
-		[Required]
-		[MaxLength(13)]
 		public string Isbn { get; set; }
 
-		[Required]
 		public decimal Price { get; set; }
 
 		public int Pages { get; set; }
@@ -26,5 +19,13 @@ namespace Bookstore.Common.Models.WebModels
 		public int Amount { get; set; }
 
 		public decimal Discount { get; set; }
+
+		public string ImageLocation { get; set; }
+	}
+
+	public class Books
+	{
+		[XmlElement("Book")]
+		public Book[] BookList { get; set; }
 	}
 }

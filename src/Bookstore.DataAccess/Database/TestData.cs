@@ -50,7 +50,7 @@ namespace Bookstore.DataAccess.Database
 				{
 					Id = 1,
 					BookId = 1,
-					Ammount = 50,
+					Amount = 50,
 					Discount = 0,
 					IsAvailable = true,
 					IsInDiscount = false,
@@ -60,7 +60,7 @@ namespace Bookstore.DataAccess.Database
 				{
 					Id = 2,
 					BookId = 2,
-					Ammount = 10,
+					Amount = 10,
 					Discount = 10,
 					IsAvailable = true,
 					IsInDiscount = true,
@@ -70,7 +70,7 @@ namespace Bookstore.DataAccess.Database
 				{
 					Id = 3,
 					BookId = 3,
-					Ammount = 0,
+					Amount = 0,
 					Discount = 0,
 					IsAvailable = false,
 					IsInDiscount = false,

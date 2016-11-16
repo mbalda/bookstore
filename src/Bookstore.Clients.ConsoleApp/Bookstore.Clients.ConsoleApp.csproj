@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookInserter.cs" />
+    <Compile Include="Book.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceProvider.cs" />
@@ -58,6 +59,19 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Books.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Images\asp.net_web_api_2_2nd_edition.jpg" />
+    <Content Include="Data\Images\head_first_jquery.jpg" />
+    <Content Include="Data\Images\head_first_sql.jpg" />
+    <Content Include="Data\Images\material_design_implementation_with_angularjs.jpg" />
+    <Content Include="Data\Images\professional_asp.net_4_in_c_and_vb.jpg" />
+    <Content Include="Data\Images\pro_asp.net_web_api_security.jpg" />
+    <Content Include="Data\Images\raspberry_pi_iot_projects.jpg" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

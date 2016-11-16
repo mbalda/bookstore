@@ -13,6 +13,8 @@ namespace Bookstore.Common.Infrastructure.Commands
 
 		public decimal Price { get; }
 
+		public decimal Discount { get; }
+
 		public int Pages { get; }
 
 		public int Amount { get; }
@@ -24,9 +26,10 @@ namespace Bookstore.Common.Infrastructure.Commands
 			Author = newBook.Author;
 			Title = newBook.Title;
 			Isbn = newBook.Isbn;
-			Price = newBook.Price;
 			Pages = newBook.Pages;
 			Description = newBook.Description;
+			Price = newBook.Price;
+			Discount = newBook.Discount;
 			Amount = newBook.Amount;
 		}
 

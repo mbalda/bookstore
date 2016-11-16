@@ -17,7 +17,7 @@ namespace Bookstore.DataAccess.Database.Configurations
 
 			Property(x => x.Title).HasMaxLength(100);
 
-			Property(x => x.Isbn).HasMaxLength(13)
+			Property(x => x.Isbn).HasMaxLength(20)
 				.HasColumnAnnotation(
 					IndexAnnotation.AnnotationName, new IndexAnnotation(
 						new IndexAttribute { IsUnique = true }));
