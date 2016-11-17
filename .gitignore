@@ -31,3 +31,6 @@
 /src/Bookstore.Services/bin
 /src/Bookstore.Clients.ConsoleApp/obj/Debug
 /src/Bookstore.Clients.ConsoleApp/bin/Debug
+/src/Bookstore.Clients.ConsoleApp/bin/Release
+/src/Bookstore.Clients.ConsoleApp/obj/Release
+/tests/Bookstore.Web.API.Tests/bin/Release

@@ -13,7 +13,7 @@ namespace Bookstore.Common.Models.WebModels
 		public string Title { get; set; }
 
 		[Required]
-		[MaxLength(13)]
+		[MaxLength(20)]
 		public string Isbn { get; set; }
 
 		[Required]

@@ -2,13 +2,12 @@
 using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
-using Bookstore.Web.API.ErrorHandling;
+using Bookstore.Web.API.CustomResults;
 using Bookstore.Web.API.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Http;
-using Bookstore.Web.API.CustomResults;
 
 namespace Bookstore.Web.API.Controllers
 {
@@ -113,7 +112,7 @@ namespace Bookstore.Web.API.Controllers
 			var result = _getBookInfoWithDetailsUseCase.Handle(query);
 
 			if (result != null)
-				return Ok(result);
+				return Created("", result);
 
 			return NotFound();
 		}

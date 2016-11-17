@@ -1,12 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Xml.Serialization;
+﻿using System.Net;
 
 namespace Bookstore.Clients.ConsoleApp
 {
 	public class BookInserter
 	{
-		const string ResourceUrl = "users";
+		const string ResourceUrl = "books";
 		private readonly ServiceProvider _services;
 
 		public BookInserter()
@@ -14,29 +12,22 @@ namespace Bookstore.Clients.ConsoleApp
 			_services = new ServiceProvider();
 		}
 
-		public void InsertBooksToStore()
+		public string InsertBooksToStore(Book book)
 		{
-			var books = GetBooks();
+			string message;
 
-			foreach (var book in books.BookList)
+			var result = _services.Post(ResourceUrl, book);
+
+			if (result.StatusCode == HttpStatusCode.Created)
 			{
-				var result = _services.Post(ResourceUrl, book);
+				message = $"Book: {book.Title}, has been uploaded to store.";
 			}
-		}
-
-		private Books GetBooks()
-		{
-			Books books;
-
-			var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Books.xml");
-			var serializer = new XmlSerializer(typeof(Books));
-
-			using (StreamReader reader = new StreamReader(path))
+			else
 			{
-				books = (Books)serializer.Deserialize(reader);
+				message = $"Some error occured uploading book: {book.Title}. Details: {result.ReasonPhrase}.";
 			}
 
-			return books;
+			return message;
 		}
 	}
 }
