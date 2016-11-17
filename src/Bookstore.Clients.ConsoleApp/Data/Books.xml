@@ -30,11 +30,11 @@
 
 	<Book>
 		<Author>Jamie Kurtz, Brian Wortman</Author>
-		<Title> ASP.NET Web API 2, 2nd Edition</Title>
-		<Isbn>	978-1-484201-10-7 </Isbn>
-		<Price>112 </Price>
-		<Discount>20 </Discount>
-		<Amount>215 </Amount>
+		<Title>ASP.NET Web API 2, 2nd Edition</Title>
+		<Isbn>978-1-484201-10-7</Isbn>
+		<Price>112</Price>
+		<Discount>20</Discount>
+		<Amount>215</Amount>
 		<ImageLocation>asp.net_web_api_2_2nd_edition.jpg</ImageLocation>
 		<Description>
 			The ASP.NET MVC Framework has always been a good platform on which to implement REST-based services, but the introduction of the ASP.NET Web API Framework raised the bar to a whole new level.
@@ -44,12 +44,12 @@
 	</Book>
 
 	<Book>
-		<Author>	John C. Shovic </Author>
-		<Title>Raspberry Pi IoT Projects </Title>
-		<Isbn>	978-1-484213-78-0 </Isbn>
-		<Price>35.50 </Price>
-		<Discount>0 </Discount>
-		<Amount>13 </Amount>
+		<Author>John C. Shovic</Author>
+		<Title>Raspberry Pi IoT Projects</Title>
+		<Isbn>978-1-484213-78-0</Isbn>
+		<Price>35.50</Price>
+		<Discount>0</Discount>
+		<Amount>13</Amount>
 		<ImageLocation>raspberry_pi_iot_projects.jpg</ImageLocation>
 		<Description>
 			This book is designed for entry-through-intermediate-level device designers who want to build their own Internet of Things (IoT) projects for prototyping and proof-of-concept purposes. Expert makers may also find interesting new approaches. Raspberry Pi IoT Projects contains the tools needed to build a prototype of your design, sense the environment, communicate with the Internet (over the Internet and Machine to Machine communications) and display the results.
@@ -58,12 +58,12 @@
 	</Book>
 
 	<Book>
-		<Author>Ryan Benedetti, Ronan Cranley </Author>
-		<Title>Head First jQuery </Title>
-		<Isbn>978-1-4493-9321-2 </Isbn>
-		<Price>49.90 </Price>
-		<Discount>15.50 </Discount>
-		<Amount>146 </Amount>
+		<Author>Ryan Benedetti, Ronan Cranley</Author>
+		<Title>Head First jQuery</Title>
+		<Isbn>978-1-4493-9321-2</Isbn>
+		<Price>49.90</Price>
+		<Discount>15.50</Discount>
+		<Amount>146</Amount>
 		<ImageLocation>head_first_jquery.jpg</ImageLocation>
 		<Description>
 			Want to add more interactivity and polish to your websites? Discover how jQuery can help you build complex scripting functionality in just a few lines of code. With Head First jQuery, you'll quickly get up to speed on this amazing JavaScript library by learning how to navigate HTML documents while handling events, effects, callbacks, and animations. By the time you've completed the book, you'll be incorporating Ajax apps, working seamlessly with HTML and CSS, and handling data with PHP, MySQL and JSON.
@@ -72,12 +72,12 @@
 	</Book>
 
 	<Book>
-		<Author>	Lynn Beighley </Author>
-		<Title>Head First SQL </Title>
-		<Isbn> 	978-0-596-52684-9</Isbn>
-		<Price>31 </Price>
-		<Discount>0 </Discount>
-		<Amount>54 </Amount>
+		<Author>Lynn Beighley</Author>
+		<Title>Head First SQL</Title>
+		<Isbn>978-0-596-52684-9</Isbn>
+		<Price>31</Price>
+		<Discount>0</Discount>
+		<Amount>54</Amount>
 		<ImageLocation>head_first_sql.jpg</ImageLocation>
 		<Description>
 			Maybe you've written some simple SQL queries to interact with databases. But now you want more, you want to really dig into those databases and work with your data. Head First SQL will show you the fundamentals of SQL and how to really take advantage of it.
@@ -86,12 +86,25 @@
 	</Book>
 
 	<Book>
-		<Author>	Keerti Kotaru </Author>
-		<Title>Material Design implementation with AngularJS </Title>
-		<Isbn> 	978-1-484221-89-1</Isbn>
-		<Price>110 </Price>
-		<Discount>0 </Discount>
-		<Amount> 36</Amount>
+		<Author></Author>
+		<Title>Book without author</Title>
+		<Isbn>978-0-596-52684-9</Isbn>
+		<Price>31</Price>
+		<Discount>0</Discount>
+		<Amount>54</Amount>
+		<ImageLocation>head_first_sql.jpg</ImageLocation>
+		<Description>
+		</Description>
+		<Pages>10</Pages>
+	</Book>
+
+	<Book>
+		<Author>Keerti Kotaru</Author>
+		<Title>Material Design implementation with AngularJS</Title>
+		<Isbn>978-1-484221-89-1</Isbn>
+		<Price>110</Price>
+		<Discount>0</Discount>
+		<Amount>36</Amount>
 		<ImageLocation>material_design_implementation_with_angularjs.jpg</ImageLocation>
 		<Description>
 			Building web and mobile apps that are interactive, fluid and provide consistent experience across devices ranging from desktops, tablets and smart phones is challenging. User Interface (UI) elements need to adapt to various screen sizes and yet the code behind need to be reusable and follow best of coding practices.
@@ -100,4 +113,16 @@
 		<Pages>720</Pages>
 	</Book>
 
+	<Book>
+		<Author>Someone</Author>
+		<Title>Book without ISBN</Title>
+		<Isbn></Isbn>
+		<Price>31</Price>
+		<Discount>0</Discount>
+		<Amount>54</Amount>
+		<ImageLocation>head_first_sql.jpg</ImageLocation>
+		<Description>
+		</Description>
+		<Pages>10</Pages>
+	</Book>
 </Books>
