@@ -1,10 +1,13 @@
-﻿using System.Net;
+﻿using Newtonsoft.Json;
+using System;
+using System.IO;
+using System.Net;
 
 namespace Bookstore.Clients.ConsoleApp
 {
 	public class BookInserter
 	{
-		const string ResourceUrl = "books";
+		const string ResourceBaseUrl = "books";
 		private readonly ServiceProvider _services;
 
 		public BookInserter()
@@ -16,18 +19,43 @@ namespace Bookstore.Clients.ConsoleApp
 		{
 			string message;
 
-			var result = _services.Post(ResourceUrl, book);
+			var resposne = _services.Post(ResourceBaseUrl, book);
+			var responseContent = JsonConvert.DeserializeObject<BookResponse>(resposne.Content.ReadAsStringAsync().Result);
 
-			if (result.StatusCode == HttpStatusCode.Created)
+			if (resposne.StatusCode == HttpStatusCode.Created)
 			{
 				message = $"Book: {book.Title}, has been uploaded to store.";
+				message += UploadImage(responseContent.Id, book.ImageName);
 			}
 			else
 			{
-				message = $"Some error occured uploading book: {book.Title}. Details: {result.ReasonPhrase}.";
+				message = $"Some error occured uploading book: {book.Title}. Details: {resposne.ReasonPhrase}.";
 			}
 
 			return message;
+		}
+
+		private string UploadImage(int bookId, string fileName)
+		{
+			var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
+			using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
+			{
+				return UploadImage(bookId, fileStream, fileName);
+			}
+		}
+
+		private string UploadImage(int bookId, Stream image, string fileName)
+		{
+			string resourceImageUrl = $"{ResourceBaseUrl}/{bookId}/image";
+
+			var result = _services.UploadFileForBook(resourceImageUrl, image, fileName);
+
+			if (result.StatusCode == HttpStatusCode.Created)
+			{
+				return $"File '{fileName}' for book with ID {bookId}, has been uploaded to store.";
+			}
+
+			return $"Some error occured uploading image '{fileName}'. Details: {result.ReasonPhrase}.";
 		}
 	}
 }

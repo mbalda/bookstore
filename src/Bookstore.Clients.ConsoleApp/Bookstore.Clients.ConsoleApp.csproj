@@ -53,6 +53,7 @@
     <Compile Include="BookDataExtractor.cs" />
     <Compile Include="BookInserter.cs" />
     <Compile Include="Book.cs" />
+    <Compile Include="BookResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceProvider.cs" />
@@ -65,13 +66,27 @@
     <Content Include="Data\Books.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Images\asp.net_web_api_2_2nd_edition.jpg" />
-    <Content Include="Data\Images\head_first_jquery.jpg" />
-    <Content Include="Data\Images\head_first_sql.jpg" />
-    <Content Include="Data\Images\material_design_implementation_with_angularjs.jpg" />
-    <Content Include="Data\Images\professional_asp.net_4_in_c_and_vb.jpg" />
-    <Content Include="Data\Images\pro_asp.net_web_api_security.jpg" />
-    <Content Include="Data\Images\raspberry_pi_iot_projects.jpg" />
+    <Content Include="Data\Images\asp.net_web_api_2_2nd_edition.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Images\head_first_jquery.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Images\head_first_sql.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Images\material_design_implementation_with_angularjs.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Images\professional_asp.net_4_in_c_and_vb.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Images\pro_asp.net_web_api_security.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\Images\raspberry_pi_iot_projects.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

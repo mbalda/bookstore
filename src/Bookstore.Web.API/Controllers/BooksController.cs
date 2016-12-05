@@ -6,7 +6,11 @@ using Bookstore.Web.API.CustomResults;
 using Bookstore.Web.API.Helpers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace Bookstore.Web.API.Controllers
@@ -115,6 +119,36 @@ namespace Bookstore.Web.API.Controllers
 				return Created("", result);
 
 			return NotFound();
+		}
+
+		[HttpPost]
+		[Route("{bookId}/image")]
+		public async Task<IHttpActionResult> PostFormData()
+		{
+			if (!Request.Content.IsMimeMultipartContent())
+			{
+				throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+			}
+
+			var root = HttpContext.Current.Server.MapPath("~/App_Data");
+			var provider = new MultipartFormDataStreamProvider(root);
+
+			try
+			{
+				await Request.Content.ReadAsMultipartAsync(provider);
+
+				foreach (MultipartFileData file in provider.FileData)
+				{
+					Trace.WriteLine(file.Headers.ContentDisposition.FileName);
+					Trace.WriteLine("Server file path: " + file.LocalFileName);
+				}
+
+				return Ok();
+			}
+			catch (Exception exception)
+			{
+				return InternalServerError(exception);
+			}
 		}
 
 		[HttpPut]
