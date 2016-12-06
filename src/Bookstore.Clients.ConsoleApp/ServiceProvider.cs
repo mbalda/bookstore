@@ -30,11 +30,11 @@ namespace Bookstore.Clients.ConsoleApp
 
 		public HttpResponseMessage UploadFileForBook(string resourceUrl, Stream image, string fileName)
 		{
+			var boundaryName = "Upload image----" + DateTime.Now.ToString(CultureInfo.InvariantCulture);
 
 			using (var client = new HttpClient { BaseAddress = new Uri(_baseApiUrl) })
 			{
-				using (var content =
-					new MultipartFormDataContent("Upload image----" + DateTime.Now.ToString(CultureInfo.InvariantCulture)))
+				using (var content = new MultipartFormDataContent(boundaryName))
 				{
 					content.Add(new StreamContent(image), "fileUpload", fileName);
 

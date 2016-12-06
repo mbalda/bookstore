@@ -35,18 +35,17 @@ namespace Bookstore.Clients.ConsoleApp
 			return message;
 		}
 
-		private string UploadImage(int bookId, string fileName)
+		private Stream ReadFile(string fileName)
 		{
-			var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", fileName);
-			using (var fileStream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
-			{
-				return UploadImage(bookId, fileStream, fileName);
-			}
+			var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "Images", fileName);
+			return File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 		}
 
-		private string UploadImage(int bookId, Stream image, string fileName)
+		private string UploadImage(int bookId, string fileName)
 		{
 			string resourceImageUrl = $"{ResourceBaseUrl}/{bookId}/image";
+
+			var image = ReadFile(fileName);
 
 			var result = _services.UploadFileForBook(resourceImageUrl, image, fileName);
 

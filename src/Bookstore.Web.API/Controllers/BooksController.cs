@@ -6,7 +6,7 @@ using Bookstore.Web.API.CustomResults;
 using Bookstore.Web.API.Helpers;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -137,11 +137,11 @@ namespace Bookstore.Web.API.Controllers
 			{
 				await Request.Content.ReadAsMultipartAsync(provider);
 
-				foreach (MultipartFileData file in provider.FileData)
-				{
-					Trace.WriteLine(file.Headers.ContentDisposition.FileName);
-					Trace.WriteLine("Server file path: " + file.LocalFileName);
-				}
+				var file = provider.FileData.FirstOrDefault();
+				var fileName = file?.Headers.ContentDisposition.FileName;
+
+				HttpContent content = provider.Contents.First();
+				var filestream = content.ReadAsStreamAsync().Result;
 
 				return Ok();
 			}
