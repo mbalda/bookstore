@@ -6,6 +6,7 @@ using Bookstore.Web.API.CustomResults;
 using Bookstore.Web.API.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -22,17 +23,20 @@ namespace Bookstore.Web.API.Controllers
 		private readonly IQueryHandler<GetBookQuery, BookInfoWithDetails> _getBookInfoWithDetailsUseCase;
 		private readonly IQueryHandler<GetBooksQuery, ICollection<BookInfo>> _getBooksBaseInfoUseCase;
 		private readonly ICommandHandler<AddNewBookCommand> _addNewBookToStoreUseCase;
+		private readonly ICommandHandler<StoreFileCommand> _storeFileUseCase;
 
 		public BooksController(
 			IQueryHandler<GetBookQuery, BookInfo> getBookBaseInfoUseCase,
 			IQueryHandler<GetBookQuery, BookInfoWithDetails> getBookInfoWithDetailsUseCase,
 			IQueryHandler<GetBooksQuery, ICollection<BookInfo>> getBooksBaseInfoUseCase,
-			ICommandHandler<AddNewBookCommand> addNewBookToStoreUseCase)
+			ICommandHandler<AddNewBookCommand> addNewBookToStoreUseCase,
+			ICommandHandler<StoreFileCommand> storeFileUseCase)
 		{
 			_getBookBaseInfoUseCase = getBookBaseInfoUseCase;
 			_getBookInfoWithDetailsUseCase = getBookInfoWithDetailsUseCase;
 			_getBooksBaseInfoUseCase = getBooksBaseInfoUseCase;
 			_addNewBookToStoreUseCase = addNewBookToStoreUseCase;
+			_storeFileUseCase = storeFileUseCase;
 		}
 
 		[HttpGet]
@@ -135,13 +139,33 @@ namespace Bookstore.Web.API.Controllers
 
 			try
 			{
+				Stream filestream = null;
+				int bookId = 0;
+
 				await Request.Content.ReadAsMultipartAsync(provider);
 
 				var file = provider.FileData.FirstOrDefault();
 				var fileName = file?.Headers.ContentDisposition.FileName;
 
-				HttpContent content = provider.Contents.First();
-				var filestream = content.ReadAsStreamAsync().Result;
+				foreach (HttpContent content in provider.Contents)
+				{
+					if (content.Headers.ContentDisposition.Name == "fileUpload")
+					{
+						filestream = content.ReadAsStreamAsync().Result;
+					}
+
+					if (content.Headers.ContentDisposition.Name == "bookId")
+					{
+						bookId = int.Parse(content.ReadAsStringAsync().Result);
+					}
+				}
+
+				var command = new StoreFileCommand(fileName, filestream, bookId);
+
+				if (!command.IsValidCommand())
+					return BadRequest();
+
+				_storeFileUseCase.Handle(command);
 
 				return Ok();
 			}
@@ -149,6 +173,32 @@ namespace Bookstore.Web.API.Controllers
 			{
 				return InternalServerError(exception);
 			}
+		}
+
+		private StoreFileCommand CreateCommand(MultipartFormDataStreamProvider provider)
+		{
+			Stream filestream = null;
+			int bookId = 0;
+
+			Request.Content.ReadAsMultipartAsync(provider);
+
+			var file = provider.FileData.FirstOrDefault();
+			var fileName = file?.Headers.ContentDisposition.FileName;
+
+			foreach (HttpContent content in provider.Contents)
+			{
+				if (content.Headers.ContentDisposition.Name == "fileUpload")
+				{
+					filestream = content.ReadAsStreamAsync().Result;
+				}
+
+				if (content.Headers.ContentDisposition.Name == "bookId")
+				{
+					bookId = int.Parse(content.ReadAsStringAsync().Result);
+				}
+			}
+
+			return new StoreFileCommand(fileName, filestream, bookId);
 		}
 
 		[HttpPut]

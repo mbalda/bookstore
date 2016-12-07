@@ -52,6 +52,7 @@
     <Compile Include="UseCases\RegisterNewUserUseCase.cs" />
     <Compile Include="UseCases\GetUserUseCase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UseCases\StoreFileUseCase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bookstore.Common.Infrastructure\Bookstore.Common.Infrastructure.csproj">

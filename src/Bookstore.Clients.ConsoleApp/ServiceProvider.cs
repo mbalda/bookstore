@@ -28,7 +28,7 @@ namespace Bookstore.Clients.ConsoleApp
 			}
 		}
 
-		public HttpResponseMessage UploadFileForBook(string resourceUrl, Stream image, string fileName)
+		public HttpResponseMessage UploadFileForBook(string resourceUrl, Stream image, string fileName, int bookId)
 		{
 			var boundaryName = "Upload image----" + DateTime.Now.ToString(CultureInfo.InvariantCulture);
 
@@ -37,6 +37,7 @@ namespace Bookstore.Clients.ConsoleApp
 				using (var content = new MultipartFormDataContent(boundaryName))
 				{
 					content.Add(new StreamContent(image), "fileUpload", fileName);
+					content.Add(new StringContent(bookId.ToString()), "bookId");
 
 					return client.PostAsync(resourceUrl, content).Result;
 				}

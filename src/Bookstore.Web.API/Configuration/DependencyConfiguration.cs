@@ -45,6 +45,7 @@ namespace Bookstore.Web.API.Configuration
 		{
 			container.Register<ICommandHandler<RegisterNewUserCommand>, RegisterNewUserUseCase>();
 			container.Register<ICommandHandler<AddNewBookCommand>, AddNewBookToStoreUseCase>();
+			container.Register<ICommandHandler<StoreFileCommand>, StoreFileUseCase>();
 		}
 
 		private static void RegisterDataAccessLayerComponents(Container container)
@@ -53,6 +54,7 @@ namespace Bookstore.Web.API.Configuration
 			container.Register<IUserRepository, UserRepository>(Lifestyle.Scoped);
 			container.Register<IBookRepository, BookRepository>(Lifestyle.Scoped);
 			container.Register<IStoreRepository, StoreRepository>(Lifestyle.Scoped);
+			container.Register<IImageRepository, ImageRepository>(Lifestyle.Scoped);
 		}
 	}
 }

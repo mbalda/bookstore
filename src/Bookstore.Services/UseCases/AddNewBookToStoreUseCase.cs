@@ -7,12 +7,10 @@ namespace Bookstore.Services.UseCases
 	public class AddNewBookToStoreUseCase : ICommandHandler<AddNewBookCommand>
 	{
 		private readonly IBookRepository _bookRepository;
-		private readonly IStoreRepository _storeRepository;
 
-		public AddNewBookToStoreUseCase(IBookRepository bookRepository, IStoreRepository storeRepository)
+		public AddNewBookToStoreUseCase(IBookRepository bookRepository)
 		{
 			_bookRepository = bookRepository;
-			_storeRepository = storeRepository;
 		}
 
 		public void Handle(AddNewBookCommand command)
