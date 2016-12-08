@@ -31,9 +31,14 @@ namespace Bookstore.Services.UseCases
 
 		private string StoreFile(string fileName, Stream fileContent)
 		{
-			string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", fileName);
+			string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
 
-			using (var file = File.OpenWrite(path))
+			if (!Directory.Exists(path))
+				Directory.CreateDirectory(path);
+
+			var filePath = Path.Combine(path, fileName);
+
+			using (var file = File.Create(filePath))
 			{
 				fileContent.CopyTo(file);
 			}

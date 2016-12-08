@@ -127,7 +127,7 @@ namespace Bookstore.Web.API.Controllers
 
 		[HttpPost]
 		[Route("{bookId}/image")]
-		public async Task<IHttpActionResult> PostFormData()
+		public async Task<IHttpActionResult> PostFormData([FromUri] int bookId)
 		{
 			if (!Request.Content.IsMimeMultipartContent())
 			{
@@ -140,7 +140,6 @@ namespace Bookstore.Web.API.Controllers
 			try
 			{
 				Stream filestream = null;
-				int bookId = 0;
 
 				await Request.Content.ReadAsMultipartAsync(provider);
 
@@ -149,15 +148,16 @@ namespace Bookstore.Web.API.Controllers
 
 				foreach (HttpContent content in provider.Contents)
 				{
+					// http://stackoverflow.com/questions/30249953/cannot-access-a-closed-file-when-uploading-to-memory-stream
 					if (content.Headers.ContentDisposition.Name == "fileUpload")
 					{
 						filestream = content.ReadAsStreamAsync().Result;
 					}
 
-					if (content.Headers.ContentDisposition.Name == "bookId")
-					{
-						bookId = int.Parse(content.ReadAsStringAsync().Result);
-					}
+					//if (content.Headers.ContentDisposition.Name == "bookId")
+					//{
+					//	bookId = int.Parse(content.ReadAsStringAsync().Result);
+					//}
 				}
 
 				var command = new StoreFileCommand(fileName, filestream, bookId);
@@ -173,32 +173,6 @@ namespace Bookstore.Web.API.Controllers
 			{
 				return InternalServerError(exception);
 			}
-		}
-
-		private StoreFileCommand CreateCommand(MultipartFormDataStreamProvider provider)
-		{
-			Stream filestream = null;
-			int bookId = 0;
-
-			Request.Content.ReadAsMultipartAsync(provider);
-
-			var file = provider.FileData.FirstOrDefault();
-			var fileName = file?.Headers.ContentDisposition.FileName;
-
-			foreach (HttpContent content in provider.Contents)
-			{
-				if (content.Headers.ContentDisposition.Name == "fileUpload")
-				{
-					filestream = content.ReadAsStreamAsync().Result;
-				}
-
-				if (content.Headers.ContentDisposition.Name == "bookId")
-				{
-					bookId = int.Parse(content.ReadAsStringAsync().Result);
-				}
-			}
-
-			return new StoreFileCommand(fileName, filestream, bookId);
 		}
 
 		[HttpPut]

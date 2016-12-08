@@ -47,7 +47,7 @@ namespace Bookstore.Clients.ConsoleApp
 
 			var image = ReadFile(fileName);
 
-			var result = _services.UploadFileForBook(resourceImageUrl, image, fileName, bookId);
+			var result = _services.UploadFileForBook(resourceImageUrl, image, fileName);
 
 			if (result.StatusCode == HttpStatusCode.Created)
 			{
