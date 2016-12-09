@@ -7,11 +7,9 @@ using Bookstore.Web.API.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace Bookstore.Web.API.Controllers
@@ -134,38 +132,30 @@ namespace Bookstore.Web.API.Controllers
 				throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
 			}
 
-			var root = HttpContext.Current.Server.MapPath("~/App_Data");
-			var provider = new MultipartFormDataStreamProvider(root);
+			var provider = new MultipartMemoryStreamProvider();
 
 			try
 			{
-				Stream filestream = null;
-
 				await Request.Content.ReadAsMultipartAsync(provider);
-
-				var file = provider.FileData.FirstOrDefault();
-				var fileName = file?.Headers.ContentDisposition.FileName;
 
 				foreach (HttpContent content in provider.Contents)
 				{
-					// http://stackoverflow.com/questions/30249953/cannot-access-a-closed-file-when-uploading-to-memory-stream
+					Stream filestream = null;
+					var fileName = string.Empty;
+
 					if (content.Headers.ContentDisposition.Name == "fileUpload")
 					{
 						filestream = content.ReadAsStreamAsync().Result;
+						fileName = content.Headers.ContentDisposition.FileName;
 					}
 
-					//if (content.Headers.ContentDisposition.Name == "bookId")
-					//{
-					//	bookId = int.Parse(content.ReadAsStringAsync().Result);
-					//}
+					var command = new StoreFileCommand(fileName, filestream, bookId);
+
+					if (!command.IsValidCommand())
+						return BadRequest();
+
+					_storeFileUseCase.Handle(command);
 				}
-
-				var command = new StoreFileCommand(fileName, filestream, bookId);
-
-				if (!command.IsValidCommand())
-					return BadRequest();
-
-				_storeFileUseCase.Handle(command);
 
 				return Ok();
 			}
