@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Bookstore.Clients.ConsoleApp.DataExtractor;
+using Bookstore.Clients.ConsoleApp.Service;
+using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Net;

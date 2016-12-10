@@ -50,13 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookDataExtractor.cs" />
+    <Compile Include="DataExtractor\BookDataExtractor.cs" />
     <Compile Include="BookInserter.cs" />
-    <Compile Include="Book.cs" />
-    <Compile Include="BookResponse.cs" />
+    <Compile Include="DataExtractor\Book.cs" />
+    <Compile Include="Service\BookResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceProvider.cs" />
+    <Compile Include="Service\ServiceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

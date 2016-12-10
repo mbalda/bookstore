@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bookstore.Clients.ConsoleApp.DataExtractor;
+using System;
 using System.Threading.Tasks;
 
 namespace Bookstore.Clients.ConsoleApp
@@ -11,7 +12,7 @@ namespace Bookstore.Clients.ConsoleApp
 			Console.WriteLine("");
 			Console.ReadKey();
 
-			Task.Run(() => Do()).Wait();
+			Task.Run(() => UploadBooksToStore()).Wait();
 
 			Console.WriteLine("");
 			Console.WriteLine("");
@@ -19,12 +20,11 @@ namespace Bookstore.Clients.ConsoleApp
 			Console.ReadKey();
 		}
 
-		private async static Task Do()
+		private async static Task UploadBooksToStore()
 		{
-			var bookDataExtractor = new BookDataExtractor();
 			var inserter = new BookInserter();
 
-			var books = bookDataExtractor.GetBooks();
+			var books = BookDataExtractor.GetBooks();
 
 			foreach (var book in books.BookList)
 			{

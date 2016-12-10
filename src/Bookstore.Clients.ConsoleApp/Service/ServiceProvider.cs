@@ -6,7 +6,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace Bookstore.Clients.ConsoleApp
+namespace Bookstore.Clients.ConsoleApp.Service
 {
 	public class ServiceProvider
 	{
