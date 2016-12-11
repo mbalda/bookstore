@@ -19,22 +19,18 @@ namespace Bookstore.Clients.ConsoleApp
 
 		public string InsertBooksToStore(Book book)
 		{
-			string message;
-
 			var resposne = _services.Post(ResourceBaseUrl, book);
 			var responseContent = JsonConvert.DeserializeObject<BookResponse>(resposne.Content.ReadAsStringAsync().Result);
 
 			if (resposne.StatusCode == HttpStatusCode.Created)
 			{
-				message = $"Book: {book.Title}, has been uploaded to store.";
+				var message = $"Book: {book.Title}, has been uploaded to store.\r\n";
 				message += UploadImage(responseContent.Id, book.ImageName);
-			}
-			else
-			{
-				message = $"Some error occured uploading book: {book.Title}. Details: {resposne.ReasonPhrase}.";
+
+				return message;
 			}
 
-			return message;
+			return $"Some error occured uploading book: {book.Title}. Details: {resposne.ReasonPhrase}.";
 		}
 
 		private Stream ReadFile(string fileName)

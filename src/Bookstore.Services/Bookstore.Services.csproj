@@ -36,6 +36,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\LinkGenerator.cs" />
+    <Compile Include="Helpers\UserResourceLinksProvider.cs" />
     <Compile Include="UseCases\GetBooksBaseInfoUseCase.cs" />
     <Compile Include="UseCases\GetBookInfoWithDetailsUseCase.cs" />
     <Compile Include="UseCases\GetBookBaseInfoUseCase.cs" />

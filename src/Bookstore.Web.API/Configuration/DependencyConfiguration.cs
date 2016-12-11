@@ -4,6 +4,7 @@ using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
 using Bookstore.DataAccess.Database;
 using Bookstore.DataAccess.Repositories;
+using Bookstore.Services.Helpers;
 using Bookstore.Services.UseCases;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
@@ -31,6 +32,12 @@ namespace Bookstore.Web.API.Configuration
 
 			RegisterCommandHandlers(container);
 			RegisterQueryHandlers(container);
+			RegisterHelpers(container);
+		}
+
+		private static void RegisterHelpers(Container container)
+		{
+			container.Register<IUserResourceLinksProvider, UserResourceLinksProvider>();
 		}
 
 		private static void RegisterQueryHandlers(Container container)
