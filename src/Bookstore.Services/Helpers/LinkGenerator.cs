@@ -12,7 +12,7 @@ namespace Bookstore.Services.Helpers
 
 			var link = new Link
 			{
-				Href = $"{baseApiUrl}{resourcePath}",
+				Href = $"{baseApiUrl}/{resourcePath}",
 				Rel = relValue,
 				Method = httpMethod.Method
 			};

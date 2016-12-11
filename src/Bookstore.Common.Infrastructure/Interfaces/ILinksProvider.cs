@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Bookstore.Common.Infrastructure.Interfaces
 {
-	public interface IUserResourceLinksProvider
+	public interface ILinksProvider
 	{
-		List<Link> GetLinksForUser(int userId);
+		List<Link> GetLinks(int entityId);
 	}
 }

@@ -4,6 +4,7 @@ using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
 using Bookstore.Web.API.Helpers;
 using System;
+using System.Linq;
 using System.Web.Http;
 
 namespace Bookstore.Web.API.Controllers
@@ -55,12 +56,13 @@ namespace Bookstore.Web.API.Controllers
 
 			var query = new GetUserQuery(command.Login);
 
-			var result = _getUserUseCase.Handle(query);
+			var createdUser = _getUserUseCase.Handle(query);
 
-			if (result != null)
-				return Created("", result);
+			if (createdUser == null)
+				return NotFound();
 
-			return NotFound();
+			var newUserUrl = createdUser.Links.Single(x => x.Rel == "self").Href;
+			return Created(newUserUrl, createdUser);
 		}
 
 		[HttpDelete]

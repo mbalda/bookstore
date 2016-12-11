@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\LinkGenerator.cs" />
+    <Compile Include="Helpers\BookResourceLinksProvider.cs" />
     <Compile Include="Helpers\UserResourceLinksProvider.cs" />
     <Compile Include="UseCases\GetBooksBaseInfoUseCase.cs" />
     <Compile Include="UseCases\GetBookInfoWithDetailsUseCase.cs" />
