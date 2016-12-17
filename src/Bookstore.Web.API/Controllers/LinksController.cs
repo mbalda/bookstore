@@ -17,7 +17,7 @@ namespace Bookstore.Web.API.Controllers
 			links.Add(
 				new Link
 				{
-					Href = $"{basePath}/books",
+					Href = $"{basePath}books",
 					Rel = "books",
 					Method = HttpMethod.Get.ToString()
 				});
@@ -25,7 +25,7 @@ namespace Bookstore.Web.API.Controllers
 			links.Add(
 				new Link
 				{
-					Href = $"{basePath}/users",
+					Href = $"{basePath}users",
 					Rel = "users",
 					Method = HttpMethod.Get.ToString()
 				});

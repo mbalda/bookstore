@@ -36,3 +36,5 @@
 /tests/Bookstore.Web.API.Tests/bin/Release
 /src/Bookstore.Web.API/App_Data
 /src/Bookstore.Web.API/Images
+/src/Bookstore.Clients.WebApp/bin
+/src/Bookstore.Clients.WebApp/obj/Debug

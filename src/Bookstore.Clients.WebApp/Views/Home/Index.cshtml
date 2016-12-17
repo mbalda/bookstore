@@ -1,0 +1,22 @@
+﻿@model Bookstore.Clients.WebApp.Models.LinksViewModel
+
+@{
+    ViewBag.Title = "Bookstore";
+}
+
+<div class="jumbotron">
+    <h1>Bookstore</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Bookstore RESTful API provides:</h2>
+	    <p>
+		    @foreach (var link in Model.Links)
+		    {
+			    <a href="@link.Href">@link.Method: @link.Rel</a>
+				<br/>
+		    }
+	    </p>
+    </div>
+</div>
