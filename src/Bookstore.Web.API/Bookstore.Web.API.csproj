@@ -120,6 +120,7 @@
     <Compile Include="Configuration\DependencyConfiguration.cs" />
     <Compile Include="ErrorHandling\NotImplementedExceptionFilterAttribute.cs" />
     <Compile Include="Helpers\Validators.cs" />
+    <Compile Include="Controllers\LinksController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
