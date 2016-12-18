@@ -2,7 +2,6 @@ using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace Bookstore.Web.API.Tests.Integration
 {
@@ -12,7 +11,7 @@ namespace Bookstore.Web.API.Tests.Integration
 
 		protected ApiRequestsTestsBase()
 		{
-			var baseApiUrl = "http://localhost:1000/api/";
+			var baseApiUrl = "";
 
 			_httpClient = new HttpClient
 			{
@@ -29,10 +28,9 @@ namespace Bookstore.Web.API.Tests.Integration
 
 		protected TestReponse<TResponse> Post<TRequest, TResponse>(string resourceUrl, TRequest requestData)
 		{
-			StringContent httpContent = new StringContent(JsonConvert.SerializeObject(requestData));
-			httpContent.Headers.ContentType = new MediaTypeHeaderValue("text/json");
+			var serializedData = JsonConvert.SerializeObject(requestData);
 
-			var apiResponse = _httpClient.PostAsync(resourceUrl, httpContent).Result;
+			var apiResponse = _httpClient.PostAsync(resourceUrl, null).Result;
 
 			return BuildResponse<TResponse>(apiResponse);
 		}
@@ -41,8 +39,8 @@ namespace Bookstore.Web.API.Tests.Integration
 		{
 			return new TestReponse<TResponse>
 			{
-				Response = JsonConvert.DeserializeObject<TResponse>(apiResponse.Content.ReadAsStringAsync().Result),
-				StatusCode = apiResponse.StatusCode
+				Response = JsonConvert.DeserializeObject<TResponse>(""),
+				StatusCode = HttpStatusCode.OK
 			};
 		}
 

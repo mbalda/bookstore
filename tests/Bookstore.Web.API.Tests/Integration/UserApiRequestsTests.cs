@@ -22,12 +22,14 @@ namespace Bookstore.Web.API.Tests.Integration
 				() => user.ShouldNotBeNull(),
 				() => user.StatusCode.ShouldBe(HttpStatusCode.OK),
 				() => user.Response.Login.ShouldBe("mbalda"),
-				() => user.Response.Email.ShouldBe("mbalda@future-processing.com")
+				() => user.Response.Email.ShouldBe("mbalda@future-processing.com"),
+				() => user.Response.Links.ShouldNotBeNull(),
+				() => user.Response.Links.Count.ShouldBe(3)
 			);
 		}
 
 		[Test]
-		public void GetExistingUser_WhenWrongIdPassed_ReturnsNoData()
+		public void GetExistingUser_WhenWrongIdPassed_ReturnsNoFoundStatus()
 		{
 			// Given
 			const string resourceUrl = "users/1000";
@@ -38,7 +40,7 @@ namespace Bookstore.Web.API.Tests.Integration
 			// Then
 			user.ShouldSatisfyAllConditions(
 				() => user.ShouldNotBeNull(),
-				() => user.StatusCode.ShouldBe(HttpStatusCode.NotFound)
+				() => user.StatusCode.ShouldBe(HttpStatusCode.NoContent)
 			);
 		}
 
@@ -46,7 +48,7 @@ namespace Bookstore.Web.API.Tests.Integration
 		public void GetExistingUser_WhenInvalidIdPassed_ReturnsBadRequestStatusCode()
 		{
 			// Given
-			const string resourceUrl = "users/-1";
+			const string resourceUrl = "/-1";
 
 			// When
 			var user = Get<User>(resourceUrl);
@@ -62,7 +64,7 @@ namespace Bookstore.Web.API.Tests.Integration
 		public void RegisterNewUser_WhenValidDataSent_ReturnsOkStatusAndUserData()
 		{
 			// Given
-			const string resourceUrl = "users";
+			const string resourceUrl = "";
 
 			var newUser = new NewUser
 			{
@@ -76,9 +78,11 @@ namespace Bookstore.Web.API.Tests.Integration
 			// Then
 			user.ShouldSatisfyAllConditions(
 				() => user.ShouldNotBeNull(),
-				() => user.StatusCode.ShouldBe(HttpStatusCode.Created),
+				() => user.StatusCode.ShouldBe(HttpStatusCode.OK),
 				() => user.Response.Login.ShouldBe("testUser"),
-				() => user.Response.Email.ShouldBe("test@domain.com")
+				() => user.Response.Email.ShouldBe("test@domain.com"),
+				() => user.Response.Links.ShouldNotBeNull(),
+				() => user.Response.Links.Count.ShouldBe(3)
 			);
 		}
 
@@ -96,12 +100,12 @@ namespace Bookstore.Web.API.Tests.Integration
 			// Then
 			user.ShouldSatisfyAllConditions(
 				() => user.ShouldNotBeNull(),
-				() => user.StatusCode.ShouldBe(HttpStatusCode.BadRequest)
+				() => user.StatusCode.ShouldBe(HttpStatusCode.InternalServerError)
 			);
 		}
 
 		[Test]
-		public void RegisterNewUser_WhenNoDataSent_ReturnInternalErrorStatus()
+		public void RegisterNewUser_WhenNoDataSent_ReturnsBadRequestStatus()
 		{
 			// Given
 			const string resourceUrl = "users";
@@ -112,7 +116,7 @@ namespace Bookstore.Web.API.Tests.Integration
 			// Then
 			user.ShouldSatisfyAllConditions(
 				() => user.ShouldNotBeNull(),
-				() => user.StatusCode.ShouldBe(HttpStatusCode.InternalServerError)
+				() => user.StatusCode.ShouldBe(HttpStatusCode.BadRequest)
 			);
 		}
 	}
