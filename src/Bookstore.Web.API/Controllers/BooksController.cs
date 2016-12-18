@@ -208,13 +208,6 @@ namespace Bookstore.Web.API.Controllers
 			return response;
 		}
 
-		[HttpOptions]
-		[Route("{bookId}/image")]
-		public IHttpActionResult Test([FromUri] int bookId)
-		{
-			return Ok();
-		}
-
 		[HttpPut]
 		[Route("{bookId}")]
 		public IHttpActionResult UpdateBook([FromUri]int bookId)
