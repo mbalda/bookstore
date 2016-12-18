@@ -3,7 +3,6 @@ using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
 using Bookstore.Web.API.Helpers;
-using System;
 using System.Linq;
 using System.Web.Http;
 
@@ -40,17 +39,15 @@ namespace Bookstore.Web.API.Controllers
 			return NotFound();
 		}
 
-		[HttpPost]
-		[Route("")]
-		public IHttpActionResult SignUp([FromBody]NewUser newUser)
+		public void SignUp(NewUser newUser)
 		{
 			if (newUser == null)
-				return BadRequest();
+				return;
 
 			var command = new RegisterNewUserCommand(newUser);
 
 			if (!command.IsValidCommand())
-				return BadRequest();
+				return;
 
 			_registerUserUseCase.Handle(command);
 
@@ -59,17 +56,10 @@ namespace Bookstore.Web.API.Controllers
 			var createdUser = _getUserUseCase.Handle(query);
 
 			if (createdUser == null)
-				return NotFound();
+				return;
 
 			var newUserUrl = createdUser.Links.Single(x => x.Rel == "self").Href;
-			return Created(newUserUrl, createdUser);
-		}
-
-		[HttpDelete]
-		[Route("{userId}")]
-		public IHttpActionResult DeleteUser([FromUri]int userId)
-		{
-			throw new NotImplementedException("This method is not implemented in this version of API.");
+			return;
 		}
 	}
 }

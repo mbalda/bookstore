@@ -1,7 +1,6 @@
 using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Models.WebModels;
 using System.Collections.Generic;
-using System.Net.Http;
 
 namespace Bookstore.Services.Helpers
 {
@@ -11,14 +10,7 @@ namespace Bookstore.Services.Helpers
 		{
 			var links = new List<Link>
 			{
-				GetLink("self", $"books/{bookId}", HttpMethod.Get),
-				GetLink("all-books", "books", HttpMethod.Get),
-				GetLink("available-books", "books/available", HttpMethod.Get),
-				GetLink("details", $"books/{bookId}/details", HttpMethod.Get),
-				GetLink("new", "books", HttpMethod.Post),
-				GetLink("upload-image", $"books/{bookId}/image", HttpMethod.Post),
-				GetLink("download-image", $"books/{bookId}/image", HttpMethod.Get),
-				GetLink("update", $"books/{bookId}", HttpMethod.Put)
+				// Put links here
 			};
 
 			return links;

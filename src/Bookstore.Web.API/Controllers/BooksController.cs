@@ -2,21 +2,14 @@
 using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
-using Bookstore.Web.API.CustomResults;
 using Bookstore.Web.API.Helpers;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Bookstore.Web.API.Controllers
 {
-	[RoutePrefix("api/books")]
 	public class BooksController : ApiController
 	{
 		private readonly IQueryHandler<GetBookQuery, BookInfo> _getBookBaseInfoUseCase;
@@ -42,177 +35,65 @@ namespace Bookstore.Web.API.Controllers
 			_getFileUseCase = getFileUseCase;
 		}
 
-		[HttpGet]
-		[Route("")]
-		public IHttpActionResult GetAllBooksBaseInfo()
+		public void GetAllBooksBaseInfo()
 		{
 			var query = new GetBooksQuery(onlyAvailable: false);
 
 			var result = _getBooksBaseInfoUseCase.Handle(query);
 
 			if (result != null)
-				return Ok(result);
-
-			return NotFound();
+				return;
 		}
 
-		[HttpGet]
-		[Route("links")]
-		public IHttpActionResult GetLinksForAllBooks()
-		{
-			var query = new GetBooksQuery(onlyAvailable: false);
 
-			var result = _getBooksBaseInfoUseCase.Handle(query);
-
-			if (result != null)
-				return Ok(result.SelectMany(book => book.Links).Where(link => link.Rel == "self"));
-
-			return NotFound();
-		}
-
-		[HttpGet]
-		[Route("available")]
-		public IHttpActionResult GetAvailableBooksBaseInfo()
-		{
-			var query = new GetBooksQuery(onlyAvailable: true);
-
-			var result = _getBooksBaseInfoUseCase.Handle(query);
-
-			if (result != null)
-				return Ok(result);
-
-			return NotFound();
-		}
-
-		[HttpGet]
-		[Route("{bookId}")]
-		public IHttpActionResult GetBookBaseInfo([FromUri]int bookId)
+		public void GetBookBaseInfo(int bookId)
 		{
 			if (!Validators.IsIdValid(bookId))
-				return BadRequest();
+				return;
 
 			var query = new GetBookQuery(bookId);
 
 			var result = _getBookBaseInfoUseCase.Handle(query);
 
 			if (result != null)
-				return Ok(result);
-
-			return NotFound();
+				return;
 		}
 
-		[HttpGet]
-		[Route("{bookId}/details")]
-		public IHttpActionResult GetBookDetails([FromUri]int bookId)
+		public void GetBookDetails(int bookId)
 		{
 			if (!Validators.IsIdValid(bookId))
-				return BadRequest();
+				return;
 
 			var query = new GetBookQuery(bookId);
 
 			var result = _getBookInfoWithDetailsUseCase.Handle(query);
 
 			if (result != null)
-				return Ok(result);
-
-			return NotFound();
+				return;
 		}
 
-		[HttpPost]
-		[Route("")]
-		public IHttpActionResult AddNewBookToStore([FromBody]NewBook newBook)
+		public void AddNewBookToStore(NewBook newBook)
 		{
 			if (!ModelState.IsValid)
-				return new InvalidModelResult(Request, HttpStatusCode.BadRequest, ModelState);
+				return;
 
 			var command = new AddNewBookCommand(newBook);
 
 			if (!command.IsValidCommand())
-				return BadRequest();
+				return;
 
 			_addNewBookToStoreUseCase.Handle(command);
 
 			var query = new GetBookQuery(newBook.Isbn);
 
-			var result = _getBookInfoWithDetailsUseCase.Handle(query);
+			var createdBook = _getBookInfoWithDetailsUseCase.Handle(query);
 
-			if (result != null)
-				return Created("", result);
-
-			return NotFound();
-		}
-
-		[HttpPost]
-		[Route("{bookId}/image")]
-		public async Task<IHttpActionResult> UploadImage([FromUri] int bookId)
-		{
-			if (!Request.Content.IsMimeMultipartContent())
+			if (createdBook != null)
 			{
-				throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
+				var newBookUrl = createdBook.Links.Single(x => x.Rel == "self").Href;
 			}
 
-			var provider = new MultipartMemoryStreamProvider();
-
-			try
-			{
-				await Request.Content.ReadAsMultipartAsync(provider);
-
-				foreach (HttpContent content in provider.Contents)
-				{
-					Stream filestream = null;
-					var fileName = string.Empty;
-
-					if (content.Headers.ContentDisposition.Name == "fileUpload")
-					{
-						filestream = content.ReadAsStreamAsync().Result;
-						fileName = content.Headers.ContentDisposition.FileName;
-					}
-
-					var command = new StoreFileCommand(fileName, filestream, bookId);
-
-					if (!command.IsValidCommand())
-						return BadRequest();
-
-					_storeFileUseCase.Handle(command);
-				}
-
-				return Ok();
-			}
-			catch (Exception exception)
-			{
-				return InternalServerError(exception);
-			}
-		}
-
-		[HttpGet]
-		[Route("{bookId}/image")]
-		public HttpResponseMessage DownloadImage([FromUri] int bookId)
-		{
-			if (!Validators.IsIdValid(bookId))
-				return new HttpResponseMessage(HttpStatusCode.BadRequest);
-
-			var query = new GetFileForBookQuery(bookId);
-
-			var file = _getFileUseCase.Handle(query);
-
-			if (file == null)
-				return new HttpResponseMessage(HttpStatusCode.NotFound);
-
-			var response = new HttpResponseMessage(HttpStatusCode.OK)
-			{
-				Content = new StreamContent(file)
-			};
-
-			response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-
-			return response;
-		}
-
-		[HttpPut]
-		[Route("{bookId}")]
-		public IHttpActionResult UpdateBook([FromUri]int bookId)
-		{
-			throw new NotImplementedException("This method is not implemented in this version of API.");
+			return;
 		}
 	}
 }
