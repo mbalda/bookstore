@@ -2,7 +2,6 @@
 using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
-using Bookstore.Web.API.CustomResults;
 using Bookstore.Web.API.Helpers;
 using System;
 using System.Collections.Generic;
@@ -122,9 +121,6 @@ namespace Bookstore.Web.API.Controllers
 		[Route("")]
 		public IHttpActionResult AddNewBookToStore([FromBody]NewBook newBook)
 		{
-			if (!ModelState.IsValid)
-				return new InvalidModelResult(Request, HttpStatusCode.BadRequest, ModelState);
-
 			var command = new AddNewBookCommand(newBook);
 
 			if (!command.IsValidCommand())

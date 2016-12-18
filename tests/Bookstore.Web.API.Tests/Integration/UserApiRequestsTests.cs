@@ -101,7 +101,7 @@ namespace Bookstore.Web.API.Tests.Integration
 		}
 
 		[Test]
-		public void RegisterNewUser_WhenNoDataSent_ReturnInternalErrorStatus()
+		public void RegisterNewUser_WhenNoDataSent_ReturnsBadRequestStatus()
 		{
 			// Given
 			const string resourceUrl = "users";
@@ -112,7 +112,7 @@ namespace Bookstore.Web.API.Tests.Integration
 			// Then
 			user.ShouldSatisfyAllConditions(
 				() => user.ShouldNotBeNull(),
-				() => user.StatusCode.ShouldBe(HttpStatusCode.InternalServerError)
+				() => user.StatusCode.ShouldBe(HttpStatusCode.BadRequest)
 			);
 		}
 	}
