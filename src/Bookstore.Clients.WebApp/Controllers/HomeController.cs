@@ -32,8 +32,18 @@ namespace Bookstore.Clients.WebApp.Controllers
 
 		public ActionResult Books()
 		{
+			var viewModel = new BooksViewModel();
 
-			return View();
+			using (var client = new HttpClient { BaseAddress = new Uri(_baseApiUrl) })
+			{
+				var response = client.GetAsync("books").Result;
+				if (response.StatusCode == HttpStatusCode.OK)
+				{
+					viewModel.Books = JsonConvert.DeserializeObject<List<BookInfo>>(response.Content.ReadAsStringAsync().Result);
+				}
+			}
+
+			return View(viewModel);
 		}
 
 		public ActionResult Users()

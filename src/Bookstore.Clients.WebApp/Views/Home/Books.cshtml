@@ -1,7 +1,40 @@
-﻿@{
-    ViewBag.Title = "About";
+﻿@model Bookstore.Clients.WebApp.Models.BooksViewModel
+@{
+	ViewBag.Title = "Books";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<p>Use this area to provide additional information.</p>
+<div id="status">
+	<p></p>
+</div>
+
+<h4>All books in Bookstore:</h4>
+<div>
+	<ul>
+		@{
+			foreach (var book in Model.Books)
+			{
+				var uri = @book.Links.First(link => link.Rel == "details").Href;
+				<li id="@book.Id"><em>@book.Title </em> <span class="btn-link" onclick="download('@uri')">(show details)</span></li>
+			}
+		}
+		<li id="0"><em>No book</em> <span class="btn-link" onclick="download('http://localhost:1000/api/books/2222/details')">(show details)</span></li>
+
+	</ul>
+</div>
+<br/>
+<hr/>
+
+<h4>Information about selected book:</h4>
+<div id="details" class="hidden">
+	<p id="title"></p>
+	<p id="autor"></p>
+	<p id="pages"></p>
+	<p id="description"></p>
+	<p id="amount"></p>
+	<p id="isbn"></p>
+	<p id="isAvailable"></p>
+	<p id="price"></p>
+	<p id="isInDiscount"></p>
+	<p id="discount"></p>
+</div>

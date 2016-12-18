@@ -7,6 +7,7 @@ using Bookstore.Web.API.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -47,6 +48,20 @@ namespace Bookstore.Web.API.Controllers
 
 			if (result != null)
 				return Ok(result);
+
+			return NotFound();
+		}
+
+		[HttpGet]
+		[Route("links")]
+		public IHttpActionResult GetLinksForAllBooks()
+		{
+			var query = new GetBooksQuery(onlyAvailable: false);
+
+			var result = _getBooksBaseInfoUseCase.Handle(query);
+
+			if (result != null)
+				return Ok(result.SelectMany(book => book.Links).Where(link => link.Rel == "self"));
 
 			return NotFound();
 		}

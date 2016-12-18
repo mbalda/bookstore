@@ -20,10 +20,13 @@ namespace Bookstore.Services.UseCases
 		public BookInfoWithDetails Handle(GetBookQuery query)
 		{
 			var entityBook = query.IsIdKnown ? _bookRepository.Get(query.Id) : _bookRepository.Get(query.Isbn);
-			var entityStore = _storeRepository.GetByBookId(entityBook.Id);
-
 			BookInfoWithDetails bookInfo = Mapper.Map<BookDetails, BookInfoWithDetails>(entityBook);
-			Mapper.Map(entityStore, bookInfo);
+
+			if (entityBook != null)
+			{
+				var entityStore = _storeRepository.GetByBookId(entityBook.Id);
+				Mapper.Map(entityStore, bookInfo);
+			}
 
 			return bookInfo;
 		}

@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Bookstore.Clients.WebApp
 {
@@ -22,6 +21,10 @@ namespace Bookstore.Clients.WebApp
 			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
 					  "~/Scripts/bootstrap.js",
 					  "~/Scripts/respond.js"));
+
+
+			bundles.Add(new ScriptBundle("~/bundles/bookstore").Include(
+					  "~/Scripts/Bookstore/Service.js"));
 
 			bundles.Add(new StyleBundle("~/Content/css").Include(
 					  "~/Content/bootstrap.css",

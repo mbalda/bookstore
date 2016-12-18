@@ -19,6 +19,7 @@ namespace Bookstore.Web.API
 
 			// Web API routes
 			config.MapHttpAttributeRoutes();
+			config.EnableCors();
 
 			config.Routes.MapHttpRoute(
 				name: "DefaultApi",
@@ -26,9 +27,10 @@ namespace Bookstore.Web.API
 				defaults: new { id = RouteParameter.Optional }
 			);
 
+
+			// OData configuration
 			config.Count().Filter().OrderBy().Expand().Select().MaxTop(null);
 			config.MapODataServiceRoute("odata", null, GetEdmModel());
-			config.EnsureInitialized();
 		}
 
 		public static void Register(Container container)
