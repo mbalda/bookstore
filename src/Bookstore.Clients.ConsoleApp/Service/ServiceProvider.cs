@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace Bookstore.Clients.ConsoleApp.Service
 {
@@ -21,22 +19,22 @@ namespace Bookstore.Clients.ConsoleApp.Service
 		{
 			using (var httpClient = new HttpClient { BaseAddress = new Uri(_baseApiUrl) })
 			{
-				var httpContent = new StringContent(JsonConvert.SerializeObject(requestData));
-				httpContent.Headers.ContentType = new MediaTypeHeaderValue("text/json");
+				//Prepare contet to send here
 
-				return httpClient.PostAsync(resourceUrl, httpContent).Result;
+				return httpClient.PostAsync(resourceUrl, null).Result;
 			}
 		}
 
 		public HttpResponseMessage UploadFileForBook(string resourceUrl, Stream image, string fileName)
 		{
 			var boundaryName = "Upload image----" + DateTime.Now.ToString(CultureInfo.InvariantCulture);
+			const string contentDisposition = "fileUpload";
 
 			using (var client = new HttpClient { BaseAddress = new Uri(_baseApiUrl) })
 			{
 				using (var content = new MultipartFormDataContent(boundaryName))
 				{
-					content.Add(new StreamContent(image), "fileUpload", fileName);
+					content.Add(new StreamContent(image), contentDisposition, fileName);
 					// content.Add(new StringContent(bookId.ToString()), "bookId");
 
 					return client.PostAsync(resourceUrl, content).Result;

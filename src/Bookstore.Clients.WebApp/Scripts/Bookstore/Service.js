@@ -1,8 +1,8 @@
 ﻿function download(uri) {
 	$.ajax({
-		url: uri,
-		method:'GET',
-		dataType: 'json',
+		url: ,
+		method:'',
+		dataType: '',
 		error: function (request, status, error) {
 			setStatus("Something went wrong! Status code: " + request.status + " " + ( error ), "alert-danger");
 			$("#details").removeClass().addClass("hidden");
@@ -18,10 +18,10 @@
 
 function downloadImage(uri) {
 	$.ajax({
-		method: "GET",
-		url: uri,
+		method: "",
+		url: ,
 		headers: {
-			'Content-Type': "image/jpeg"
+			'Content-Type': ""
 		},
 		success: function (data) {
 			$('p#image img').attr('src', data);

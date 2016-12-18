@@ -48,8 +48,6 @@ namespace Bookstore.Clients.WebApp.Controllers
 
 		public ActionResult Users()
 		{
-			ViewBag.Message = "Your contact page.";
-
 			return View();
 		}
 	}

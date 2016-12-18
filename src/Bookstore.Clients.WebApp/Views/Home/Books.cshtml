@@ -14,7 +14,7 @@
 		@{
 			foreach (var book in Model.Books)
 			{
-				var uri = @book.Links.First(link => link.Rel == "details").Href;
+				var uri = "";
 				<li id="@book.Id"><em>@book.Title </em> <span class="btn-link" onclick="download('@uri')">(show details)</span></li>
 			}
 		}

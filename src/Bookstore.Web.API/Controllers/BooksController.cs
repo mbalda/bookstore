@@ -10,7 +10,6 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -159,16 +158,15 @@ namespace Bookstore.Web.API.Controllers
 
 				foreach (HttpContent content in provider.Contents)
 				{
-					Stream filestream = null;
+					Stream fileContent = null;
 					var fileName = string.Empty;
 
 					if (content.Headers.ContentDisposition.Name == "fileUpload")
 					{
-						filestream = content.ReadAsStreamAsync().Result;
-						fileName = content.Headers.ContentDisposition.FileName;
+						// Read fileName and fileContent here
 					}
 
-					var command = new StoreFileCommand(fileName, filestream, bookId);
+					var command = new StoreFileCommand(fileName, fileContent, bookId);
 
 					if (!command.IsValidCommand())
 						return BadRequest();
@@ -197,15 +195,6 @@ namespace Bookstore.Web.API.Controllers
 
 			if (file == null)
 				return new HttpResponseMessage(HttpStatusCode.NotFound);
-
-			var response = new HttpResponseMessage(HttpStatusCode.OK)
-			{
-				Content = new StreamContent(file)
-			};
-
-			response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
-
-			return response;
 		}
 
 		[HttpPut]
