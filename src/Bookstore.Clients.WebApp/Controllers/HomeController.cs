@@ -32,7 +32,6 @@ namespace Bookstore.Clients.WebApp.Controllers
 
 		public ActionResult Books()
 		{
-			ViewBag.Message = "Your application description page.";
 
 			return View();
 		}

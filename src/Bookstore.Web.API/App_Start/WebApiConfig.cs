@@ -1,6 +1,10 @@
-﻿using SimpleInjector;
+﻿using Bookstore.Common.Models.WebModels;
+using Microsoft.OData.Edm;
+using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using System.Web.Http;
+using System.Web.OData.Builder;
+using System.Web.OData.Extensions;
 
 namespace Bookstore.Web.API
 {
@@ -21,11 +25,24 @@ namespace Bookstore.Web.API
 				routeTemplate: "api/{controller}/{id}",
 				defaults: new { id = RouteParameter.Optional }
 			);
+
+			config.Count().Filter().OrderBy().Expand().Select().MaxTop(null);
+			config.MapODataServiceRoute("odata", null, GetEdmModel());
+			config.EnsureInitialized();
 		}
 
 		public static void Register(Container container)
 		{
 			Configuration.DependencyResolver = new SimpleInjectorWebApiDependencyResolver(container);
+		}
+
+
+		private static IEdmModel GetEdmModel()
+		{
+			var builder = new ODataConventionModelBuilder();
+
+			builder.EntitySet<BookInfo>("BookInfo");
+			return builder.GetEdmModel();
 		}
 	}
 }
