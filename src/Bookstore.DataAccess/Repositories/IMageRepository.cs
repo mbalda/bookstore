@@ -20,6 +20,11 @@ namespace Bookstore.DataAccess.Repositories
 			return _context.Images.SingleOrDefault(x => x.Id == id);
 		}
 
+		public Image GetImageByBookId(int bookId)
+		{
+			return _context.Images.SingleOrDefault(x => x.BookId == bookId);
+		}
+
 		public ICollection<Image> GetAll()
 		{
 			return _context.Images.ToList();

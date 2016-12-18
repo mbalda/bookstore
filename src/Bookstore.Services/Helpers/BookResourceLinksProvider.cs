@@ -17,6 +17,7 @@ namespace Bookstore.Services.Helpers
 				GetLink("details", $"books/{bookId}/details", HttpMethod.Get),
 				GetLink("new", "books", HttpMethod.Post),
 				GetLink("upload-image", $"books/{bookId}/image", HttpMethod.Post),
+				GetLink("download-image", $"books/{bookId}/image", HttpMethod.Get),
 				GetLink("update", $"books/{bookId}", HttpMethod.Put)
 			};
 

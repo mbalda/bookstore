@@ -4,5 +4,6 @@ namespace Bookstore.Common.Infrastructure.Interfaces
 {
 	public interface IImageRepository : IRepository<Image>
 	{
+		Image GetImageByBookId(int bookId);
 	}
 }

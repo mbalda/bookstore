@@ -32,7 +32,8 @@ namespace Bookstore.Web.API.Configuration
 				cfg.CreateMap<Models.DomainModels.BookInStore, Models.WebModels.BookInfo>();
 
 				cfg.CreateMap<Models.WebModels.BookInfoWithDetails, Models.DomainModels.BookInStore>();
-				cfg.CreateMap<Models.DomainModels.BookInStore, Models.WebModels.BookInfoWithDetails>();
+				cfg.CreateMap<Models.DomainModels.BookInStore, Models.WebModels.BookInfoWithDetails>()
+					.ForMember(d => d.Links, m => m.MapFrom(s => _bookResourceLinksProvider.GetLinks(s.Id)));
 
 				cfg.CreateMap<Models.WebModels.BookInfoWithDetails, Models.DomainModels.BookDetails>();
 				cfg.CreateMap<Models.DomainModels.BookDetails, Models.WebModels.BookInfoWithDetails>();

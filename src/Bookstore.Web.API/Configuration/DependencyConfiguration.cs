@@ -8,6 +8,7 @@ using Bookstore.Services.UseCases;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Bookstore.Web.API.Configuration
 {
@@ -39,6 +40,7 @@ namespace Bookstore.Web.API.Configuration
 			container.Register<IQueryHandler<GetBookQuery, BookInfo>, GetBookBaseInfoUseCase>();
 			container.Register<IQueryHandler<GetBookQuery, BookInfoWithDetails>, GetBookInfoWithDetailsUseCase>();
 			container.Register<IQueryHandler<GetBooksQuery, ICollection<BookInfo>>, GetBooksBaseInfoUseCase>();
+			container.Register<IQueryHandler<GetFileForBookQuery, Stream>, GetFileUseCase>();
 		}
 
 		private static void RegisterCommandHandlers(Container container)

@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
 
@@ -21,6 +22,7 @@ namespace Bookstore.Web.API.Controllers
 		private readonly IQueryHandler<GetBookQuery, BookInfo> _getBookBaseInfoUseCase;
 		private readonly IQueryHandler<GetBookQuery, BookInfoWithDetails> _getBookInfoWithDetailsUseCase;
 		private readonly IQueryHandler<GetBooksQuery, ICollection<BookInfo>> _getBooksBaseInfoUseCase;
+		private readonly IQueryHandler<GetFileForBookQuery, Stream> _getFileUseCase;
 		private readonly ICommandHandler<AddNewBookCommand> _addNewBookToStoreUseCase;
 		private readonly ICommandHandler<StoreFileCommand> _storeFileUseCase;
 
@@ -29,13 +31,15 @@ namespace Bookstore.Web.API.Controllers
 			IQueryHandler<GetBookQuery, BookInfoWithDetails> getBookInfoWithDetailsUseCase,
 			IQueryHandler<GetBooksQuery, ICollection<BookInfo>> getBooksBaseInfoUseCase,
 			ICommandHandler<AddNewBookCommand> addNewBookToStoreUseCase,
-			ICommandHandler<StoreFileCommand> storeFileUseCase)
+			ICommandHandler<StoreFileCommand> storeFileUseCase,
+			IQueryHandler<GetFileForBookQuery, Stream> getFileUseCase)
 		{
 			_getBookBaseInfoUseCase = getBookBaseInfoUseCase;
 			_getBookInfoWithDetailsUseCase = getBookInfoWithDetailsUseCase;
 			_getBooksBaseInfoUseCase = getBooksBaseInfoUseCase;
 			_addNewBookToStoreUseCase = addNewBookToStoreUseCase;
 			_storeFileUseCase = storeFileUseCase;
+			_getFileUseCase = getFileUseCase;
 		}
 
 		[HttpGet]
@@ -140,7 +144,7 @@ namespace Bookstore.Web.API.Controllers
 
 		[HttpPost]
 		[Route("{bookId}/image")]
-		public async Task<IHttpActionResult> PostFormData([FromUri] int bookId)
+		public async Task<IHttpActionResult> UploadImage([FromUri] int bookId)
 		{
 			if (!Request.Content.IsMimeMultipartContent())
 			{
@@ -178,6 +182,37 @@ namespace Bookstore.Web.API.Controllers
 			{
 				return InternalServerError(exception);
 			}
+		}
+
+		[HttpGet]
+		[Route("{bookId}/image")]
+		public HttpResponseMessage DownloadImage([FromUri] int bookId)
+		{
+			if (!Validators.IsIdValid(bookId))
+				return new HttpResponseMessage(HttpStatusCode.BadRequest);
+
+			var query = new GetFileForBookQuery(bookId);
+
+			var file = _getFileUseCase.Handle(query);
+
+			if (file == null)
+				return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+			var response = new HttpResponseMessage(HttpStatusCode.OK)
+			{
+				Content = new StreamContent(file)
+			};
+
+			response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+
+			return response;
+		}
+
+		[HttpOptions]
+		[Route("{bookId}/image")]
+		public IHttpActionResult Test([FromUri] int bookId)
+		{
+			return Ok();
 		}
 
 		[HttpPut]
