@@ -20,7 +20,7 @@ namespace Bookstore.Services.UseCases
 		public BookInfo Handle(GetBookQuery query)
 		{
 			var entityBook = _bookRepository.Get(query.Id);
-			var entityStore = _storeRepository.GetByBookId(query.Id);
+			var entityStore = _storeRepository.Get(query.Id);
 
 			BookInfo bookInfo = Mapper.Map<BookDetails, BookInfo>(entityBook);
 			Mapper.Map(entityStore, bookInfo);

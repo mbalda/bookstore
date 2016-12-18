@@ -24,7 +24,7 @@ namespace Bookstore.Services.UseCases
 
 			if (entityBook != null)
 			{
-				var entityStore = _storeRepository.GetByBookId(entityBook.Id);
+				var entityStore = _storeRepository.Get(entityBook.Id);
 				Mapper.Map(entityStore, bookInfo);
 			}
 

@@ -24,7 +24,6 @@ namespace Bookstore.Services.UseCases
 				Pages = command.Pages,
 				BookInStore = new BookInStore
 				{
-					BookId = 
 					Price = command.Price,
 					Discount = command.Discount,
 					IsInDiscount = command.Discount > 0,
