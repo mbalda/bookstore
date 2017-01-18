@@ -5,7 +5,6 @@ using Bookstore.Common.Models.WebModels;
 using Bookstore.Web.API.Helpers;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web.Http;
 
 namespace Bookstore.Web.API.Controllers
@@ -88,10 +87,8 @@ namespace Bookstore.Web.API.Controllers
 
 			var createdBook = _getBookInfoWithDetailsUseCase.Handle(query);
 
-			if (createdBook != null)
-			{
-				var newBookUrl = createdBook.Links.Single(x => x.Rel == "self").Href;
-			}
+			if (createdBook == null)
+				return;
 
 			return;
 		}

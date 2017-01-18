@@ -3,12 +3,10 @@ using Bookstore.Common.Infrastructure.Interfaces;
 using Bookstore.Common.Infrastructure.Queries;
 using Bookstore.Common.Models.WebModels;
 using Bookstore.Web.API.Helpers;
-using System.Linq;
 using System.Web.Http;
 
 namespace Bookstore.Web.API.Controllers
 {
-	[RoutePrefix("api/users")]
 	public class UsersController : ApiController
 	{
 		private readonly IQueryHandler<GetUserQuery, User> _getUserUseCase;
@@ -22,21 +20,19 @@ namespace Bookstore.Web.API.Controllers
 			_registerUserUseCase = registerUserUseCase;
 		}
 
-		[HttpGet]
-		[Route("{userId}")]
-		public IHttpActionResult GetUser([FromUri]int userId)
+		public void GetUser(int userId)
 		{
 			if (!Validators.IsIdValid(userId))
-				return BadRequest();
+				return;
 
 			var query = new GetUserQuery(userId);
 
 			var result = _getUserUseCase.Handle(query);
 
 			if (result != null)
-				return Ok(result);
+				return;
 
-			return NotFound();
+			return;
 		}
 
 		public void SignUp(NewUser newUser)
@@ -58,7 +54,6 @@ namespace Bookstore.Web.API.Controllers
 			if (createdUser == null)
 				return;
 
-			var newUserUrl = createdUser.Links.Single(x => x.Rel == "self").Href;
 			return;
 		}
 	}
