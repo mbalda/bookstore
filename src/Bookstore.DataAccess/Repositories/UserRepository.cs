@@ -22,7 +22,7 @@ namespace Bookstore.DataAccess.Repositories
 
 		public User Get(string login)
 		{
-			return _context.Users.FirstOrDefault(x => x.Login == login);
+			return _context.Users.ToList().LastOrDefault(x => x.Login == login);
 		}
 
 		public ICollection<User> GetAll()
