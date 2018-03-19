@@ -8,16 +8,24 @@ namespace Bookstore.Clients.ConsoleApp
 	{
 		static void Main(string[] args)
 		{
-			Console.WriteLine("Press Enter button to continue...");
-			Console.WriteLine("");
-			Console.ReadKey();
+			ConsoleKeyInfo keyInfo;
 
-			Task.Run(() => UploadBooksToStore()).Wait();
+			do
+			{
+				Console.WriteLine("Press Enter button to continue or Esc to exit.");
+				Console.WriteLine("");
+				keyInfo = Console.ReadKey();
+			} while (keyInfo.Key != ConsoleKey.Enter && keyInfo.Key != ConsoleKey.Escape);
 
-			Console.WriteLine("");
-			Console.WriteLine("");
-			Console.WriteLine("Press Enter button to exit.");
-			Console.ReadKey();
+			if (keyInfo.Key == ConsoleKey.Enter)
+			{
+				Task.Run(() => UploadBooksToStore()).Wait();
+
+				Console.WriteLine("");
+				Console.WriteLine("");
+				Console.WriteLine("Press any button to exit.");
+				Console.ReadKey();
+			}
 		}
 
 		private async static Task UploadBooksToStore()

@@ -10,16 +10,16 @@ namespace Bookstore.Clients.ConsoleApp
 	public class BookInserter
 	{
 		const string ResourceBaseUrl = "books";
-		private readonly ServiceProvider _services;
+		private readonly ServiceProvider _service;
 
 		public BookInserter()
 		{
-			_services = new ServiceProvider();
+			_service = new ServiceProvider();
 		}
 
 		public string InsertBooksToStore(Book book)
 		{
-			var resposne = _services.Post(ResourceBaseUrl, book);
+			var resposne = _service.Post(ResourceBaseUrl, book);
 			var responseContent = JsonConvert.DeserializeObject<BookResponse>(resposne.Content.ReadAsStringAsync().Result);
 
 			if (resposne.StatusCode == HttpStatusCode.Created)
@@ -45,9 +45,9 @@ namespace Bookstore.Clients.ConsoleApp
 
 			var image = ReadFile(fileName);
 
-			var result = _services.UploadFileForBook(resourceImageUrl, image, fileName);
+			var result = _service.UploadFileForBook(resourceImageUrl, image, fileName);
 
-			if (result.StatusCode == HttpStatusCode.Created)
+			if (result.StatusCode == HttpStatusCode.OK)
 			{
 				return $"File '{fileName}' for book with ID {bookId}, has been uploaded to store.";
 			}
