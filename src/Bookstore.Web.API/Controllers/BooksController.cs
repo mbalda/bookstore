@@ -13,16 +13,18 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Bookstore.Web.API.Controllers
 {
 	[RoutePrefix("api/books")]
+	[EnableCors("*","*","*")]
 	public class BooksController : ApiController
 	{
 		private readonly IQueryHandler<GetBookQuery, BookInfo> _getBookBaseInfoUseCase;
 		private readonly IQueryHandler<GetBookQuery, BookInfoWithDetails> _getBookInfoWithDetailsUseCase;
 		private readonly IQueryHandler<GetBooksQuery, ICollection<BookInfo>> _getBooksBaseInfoUseCase;
-		private readonly IQueryHandler<GetFileForBookQuery, Stream> _getFileUseCase;
+		private readonly IQueryHandler<GetFileForBookQuery, string> _getFileUseCase;
 		private readonly ICommandHandler<AddNewBookCommand> _addNewBookToStoreUseCase;
 		private readonly ICommandHandler<StoreFileCommand> _storeFileUseCase;
 
@@ -32,7 +34,7 @@ namespace Bookstore.Web.API.Controllers
 			IQueryHandler<GetBooksQuery, ICollection<BookInfo>> getBooksBaseInfoUseCase,
 			ICommandHandler<AddNewBookCommand> addNewBookToStoreUseCase,
 			ICommandHandler<StoreFileCommand> storeFileUseCase,
-			IQueryHandler<GetFileForBookQuery, Stream> getFileUseCase)
+			IQueryHandler<GetFileForBookQuery, string> getFileUseCase)
 		{
 			_getBookBaseInfoUseCase = getBookBaseInfoUseCase;
 			_getBookInfoWithDetailsUseCase = getBookInfoWithDetailsUseCase;
@@ -137,6 +139,7 @@ namespace Bookstore.Web.API.Controllers
 			var result = _getBookInfoWithDetailsUseCase.Handle(query);
 
 			if (result != null)
+				// TODO: Check returned location
 				return Created("", result);
 
 			return NotFound();
@@ -175,7 +178,7 @@ namespace Bookstore.Web.API.Controllers
 
 					_storeFileUseCase.Handle(command);
 				}
-
+				// TODO: Change to Created status
 				return Ok();
 			}
 			catch (Exception exception)
@@ -200,7 +203,7 @@ namespace Bookstore.Web.API.Controllers
 
 			var response = new HttpResponseMessage(HttpStatusCode.OK)
 			{
-				Content = new StreamContent(file)
+				Content = new StringContent(file)
 			};
 
 			response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");

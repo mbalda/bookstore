@@ -21,10 +21,10 @@ function downloadImage(uri) {
 		method: "GET",
 		url: uri,
 		headers: {
-			'Content-Type': "image/jpeg"
+			'Content-Type': "image/jpeg;base64"
 		},
 		success: function (data) {
-			$('p#image img').attr('src', data);
+			$('p#image img').attr('src', 'data:image/jpeg;base64,' + data);
 		},
 		error: function() {
 			setStatus("There is no image you try to download from: " + uri, "alert-danger");
