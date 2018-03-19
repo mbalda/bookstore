@@ -10,6 +10,7 @@
 
 		success: function (results) {
 			setStatus("You've got data from: " + uri, "alert-success");
+			clearImage();
 			displayData(results);
 			$("#details").removeClass();
 		} 
@@ -50,7 +51,11 @@ function displayData(data) {
 		return item.Rel == "download-image";
 	})[0];
 
-	$('p#image span').click(function() {
+	$('p#image span').off("click").click(function () {
 		downloadImage(downloadImageLink.Href);
 	});
+}
+
+function clearImage() {
+	$('p#image img').attr('src', '');
 }
