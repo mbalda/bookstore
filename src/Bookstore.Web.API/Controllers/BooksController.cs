@@ -137,8 +137,7 @@ namespace Bookstore.Web.API.Controllers
 			var result = _getBookInfoWithDetailsUseCase.Handle(query);
 
 			if (result != null)
-				// TODO: Check returned location
-				return Created("", result);
+				return Created(result.Links.First(x => x.Rel == "self").Href, result);
 
 			return NotFound();
 		}
@@ -156,12 +155,12 @@ namespace Bookstore.Web.API.Controllers
 
 			try
 			{
+				string fileName = String.Empty;
 				await Request.Content.ReadAsMultipartAsync(provider);
 
 				foreach (HttpContent content in provider.Contents)
 				{
 					Stream filestream = null;
-					var fileName = string.Empty;
 
 					if (content.Headers.ContentDisposition.Name == "fileUpload")
 					{
@@ -176,8 +175,8 @@ namespace Bookstore.Web.API.Controllers
 
 					_storeFileUseCase.Handle(command);
 				}
-				// TODO: Change to Created status
-				return Ok();
+
+				return Created("", fileName);
 			}
 			catch (Exception exception)
 			{

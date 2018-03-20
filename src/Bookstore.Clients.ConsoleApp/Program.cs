@@ -19,6 +19,8 @@ namespace Bookstore.Clients.ConsoleApp
 
 			if (keyInfo.Key == ConsoleKey.Enter)
 			{
+				Console.WriteLine("Books uploading in progress...");
+
 				Task.Run(() => UploadBooksToStore()).Wait();
 
 				Console.WriteLine("");
