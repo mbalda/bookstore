@@ -1,10 +1,4 @@
-﻿using Bookstore.Common.Infrastructure.Commands;
-using Bookstore.Common.Infrastructure.Interfaces;
-using Bookstore.Common.Infrastructure.Queries;
-using Bookstore.Common.Models.WebModels;
-using Bookstore.Web.API.CustomResults;
-using Bookstore.Web.API.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,12 +7,16 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Cors;
+using Bookstore.Common.Infrastructure.Commands;
+using Bookstore.Common.Infrastructure.Interfaces;
+using Bookstore.Common.Infrastructure.Queries;
+using Bookstore.Common.Models.WebModels;
+using Bookstore.Web.API.CustomResults;
+using Bookstore.Web.API.Helpers;
 
 namespace Bookstore.Web.API.Controllers
 {
 	[RoutePrefix("api/books")]
-	[EnableCors("*","*","*")]
 	public class BooksController : ApiController
 	{
 		private readonly IQueryHandler<GetBookQuery, BookInfo> _getBookBaseInfoUseCase;

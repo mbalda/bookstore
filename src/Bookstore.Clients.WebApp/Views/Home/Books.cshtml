@@ -18,8 +18,13 @@
 				<li id="@book.Id"><em>@book.Title </em> <span class="btn-link" onclick="download('@uri')">(show details)</span></li>
 			}
 		}
-		<li id="0"><em>No book</em> <span class="btn-link" onclick="download('http://localhost:1000/api/books/2222/details')">(show details)</span></li>
+	</ul>
 
+	<h4>CORS section:</h4>
+	<ul>
+		<li id="0"><em>Get book - no port</em> <span class="btn-link" onclick="download('http://localhost/api/books/2222/details')">(show details)</span></li>
+		<li id="0"><em>Get book - port 1000</em> <span class="btn-link" onclick="download('http://localhost:1000/api/books/2222/details')">(show details)</span></li>
+		<li id="0"><em>Get book - port 56432</em> <span class="btn-link" onclick="download('http://localhost:56432/api/books/2222/details')">(show details)</span></li>
 	</ul>
 </div>
 <br/>

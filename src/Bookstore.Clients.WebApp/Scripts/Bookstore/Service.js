@@ -4,7 +4,7 @@
 		method:'GET',
 		dataType: 'json',
 		error: function (request, status, error) {
-			setStatus("Something went wrong! Status code: " + request.status + " " + ( error ), "alert-danger");
+			setStatus("Something went wrong while requesting " + this.url + " ! Status code: " + request.status + " " + (error), "alert-danger");
 			$("#details").removeClass().addClass("hidden");
 		},
 
@@ -38,7 +38,6 @@ function setStatus(message, statusClass) {
 		.text(message)
 		.removeClass()
 		.addClass(statusClass);
-
 }
 
 function displayData(data) {
