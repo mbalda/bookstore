@@ -1,10 +1,4 @@
-﻿using Bookstore.Common.Infrastructure.Commands;
-using Bookstore.Common.Infrastructure.Interfaces;
-using Bookstore.Common.Infrastructure.Queries;
-using Bookstore.Common.Models.WebModels;
-using Bookstore.Web.API.CustomResults;
-using Bookstore.Web.API.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,6 +6,12 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Bookstore.Common.Infrastructure.Commands;
+using Bookstore.Common.Infrastructure.Interfaces;
+using Bookstore.Common.Infrastructure.Queries;
+using Bookstore.Common.Models.WebModels;
+using Bookstore.Web.API.CustomResults;
+using Bookstore.Web.API.Helpers;
 
 namespace Bookstore.Web.API.Controllers
 {
@@ -21,7 +21,7 @@ namespace Bookstore.Web.API.Controllers
 		private readonly IQueryHandler<GetBookQuery, BookInfo> _getBookBaseInfoUseCase;
 		private readonly IQueryHandler<GetBookQuery, BookInfoWithDetails> _getBookInfoWithDetailsUseCase;
 		private readonly IQueryHandler<GetBooksQuery, ICollection<BookInfo>> _getBooksBaseInfoUseCase;
-		private readonly IQueryHandler<GetFileForBookQuery, Stream> _getFileUseCase;
+		private readonly IQueryHandler<GetFileForBookQuery, string> _getFileUseCase;
 		private readonly ICommandHandler<AddNewBookCommand> _addNewBookToStoreUseCase;
 		private readonly ICommandHandler<StoreFileCommand> _storeFileUseCase;
 
@@ -31,7 +31,7 @@ namespace Bookstore.Web.API.Controllers
 			IQueryHandler<GetBooksQuery, ICollection<BookInfo>> getBooksBaseInfoUseCase,
 			ICommandHandler<AddNewBookCommand> addNewBookToStoreUseCase,
 			ICommandHandler<StoreFileCommand> storeFileUseCase,
-			IQueryHandler<GetFileForBookQuery, Stream> getFileUseCase)
+			IQueryHandler<GetFileForBookQuery, string> getFileUseCase)
 		{
 			_getBookBaseInfoUseCase = getBookBaseInfoUseCase;
 			_getBookInfoWithDetailsUseCase = getBookInfoWithDetailsUseCase;
@@ -136,7 +136,7 @@ namespace Bookstore.Web.API.Controllers
 			var result = _getBookInfoWithDetailsUseCase.Handle(query);
 
 			if (result != null)
-				return Created("", result);
+				return Created(result.Links.First(x => x.Rel == "self").Href, result);
 
 			return NotFound();
 		}
@@ -154,19 +154,19 @@ namespace Bookstore.Web.API.Controllers
 
 			try
 			{
+				string fileName = String.Empty;
 				await Request.Content.ReadAsMultipartAsync(provider);
 
 				foreach (HttpContent content in provider.Contents)
 				{
-					Stream fileContent = null;
-					var fileName = string.Empty;
+					Stream fileStream = null;
 
 					if (content.Headers.ContentDisposition.Name == "fileUpload")
 					{
 						// Read fileName and fileContent here
 					}
 
-					var command = new StoreFileCommand(fileName, fileContent, bookId);
+					var command = new StoreFileCommand(fileName, fileStream, bookId);
 
 					if (!command.IsValidCommand())
 						return BadRequest();
@@ -174,7 +174,7 @@ namespace Bookstore.Web.API.Controllers
 					_storeFileUseCase.Handle(command);
 				}
 
-				return Ok();
+				return Created("", fileName);
 			}
 			catch (Exception exception)
 			{
@@ -195,6 +195,8 @@ namespace Bookstore.Web.API.Controllers
 
 			if (file == null)
 				return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+			return null;
 		}
 
 		[HttpPut]

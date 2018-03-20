@@ -47,7 +47,7 @@ namespace Bookstore.Clients.ConsoleApp
 
 			var result = _service.UploadFileForBook(resourceImageUrl, image, fileName);
 
-			if (result.StatusCode == HttpStatusCode.Created)
+			if (result.StatusCode == HttpStatusCode.OK)
 			{
 				return $"File '{fileName}' for book with ID {bookId}, has been uploaded to store.";
 			}

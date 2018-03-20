@@ -1,10 +1,10 @@
-﻿using Bookstore.Common.Models.WebModels;
+﻿using System.Web.Http;
+using System.Web.OData.Builder;
+using System.Web.OData.Extensions;
+using Bookstore.Common.Models.WebModels;
 using Microsoft.OData.Edm;
 using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
-using System.Web.Http;
-using System.Web.OData.Builder;
-using System.Web.OData.Extensions;
 
 namespace Bookstore.Web.API
 {
@@ -19,7 +19,6 @@ namespace Bookstore.Web.API
 
 			// Web API routes
 			config.MapHttpAttributeRoutes();
-			config.EnableCors();
 
 			config.Routes.MapHttpRoute(
 				name: "DefaultApi",
@@ -27,6 +26,7 @@ namespace Bookstore.Web.API
 				defaults: new { id = RouteParameter.Optional }
 			);
 
+			// CORS
 
 			// OData configuration
 			config.Count().Filter().OrderBy().Expand().Select().MaxTop(null);

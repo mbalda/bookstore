@@ -35,7 +35,6 @@ namespace Bookstore.Clients.ConsoleApp.Service
 				using (var content = new MultipartFormDataContent(boundaryName))
 				{
 					content.Add(new StreamContent(image), contentDisposition, fileName);
-					// content.Add(new StringContent(bookId.ToString()), "bookId");
 
 					return client.PostAsync(resourceUrl, content).Result;
 				}

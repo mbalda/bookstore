@@ -40,7 +40,7 @@ namespace Bookstore.Web.API.Configuration
 			container.Register<IQueryHandler<GetBookQuery, BookInfo>, GetBookBaseInfoUseCase>();
 			container.Register<IQueryHandler<GetBookQuery, BookInfoWithDetails>, GetBookInfoWithDetailsUseCase>();
 			container.Register<IQueryHandler<GetBooksQuery, ICollection<BookInfo>>, GetBooksBaseInfoUseCase>();
-			container.Register<IQueryHandler<GetFileForBookQuery, Stream>, GetFileUseCase>();
+			container.Register<IQueryHandler<GetFileForBookQuery, string>, GetFileUseCase>();
 		}
 
 		private static void RegisterCommandHandlers(Container container)

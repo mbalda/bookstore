@@ -4,12 +4,13 @@
 		method:'',
 		dataType: '',
 		error: function (request, status, error) {
-			setStatus("Something went wrong! Status code: " + request.status + " " + ( error ), "alert-danger");
+			setStatus("Something went wrong while requesting " + this.url + " ! Status code: " + request.status + " " + (error), "alert-danger");
 			$("#details").removeClass().addClass("hidden");
 		},
 
 		success: function (results) {
 			setStatus("You've got data from: " + uri, "alert-success");
+			clearImage();
 			displayData(results);
 			$("#details").removeClass();
 		} 
@@ -24,7 +25,7 @@ function downloadImage(uri) {
 			'Content-Type': ""
 		},
 		success: function (data) {
-			$('p#image img').attr('src', data);
+			$('p#image img').attr('src', 'data:image/jpeg;base64,' + data);
 		},
 		error: function() {
 			setStatus("There is no image you try to download from: " + uri, "alert-danger");
@@ -37,7 +38,6 @@ function setStatus(message, statusClass) {
 		.text(message)
 		.removeClass()
 		.addClass(statusClass);
-
 }
 
 function displayData(data) {
@@ -50,7 +50,11 @@ function displayData(data) {
 		return item.Rel == "download-image";
 	})[0];
 
-	$('p#image span').click(function() {
+	$('p#image span').off("click").click(function () {
 		downloadImage(downloadImageLink.Href);
 	});
+}
+
+function clearImage() {
+	$('p#image img').attr('src', '');
 }
